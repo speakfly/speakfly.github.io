@@ -249,7 +249,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/12/hello/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/12/blog_02/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="speakfly">
@@ -268,7 +268,184 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/12/hello/" itemprop="url">hello</a></h1>
+                <a class="post-title-link" href="/2018/07/12/blog_02/" itemprop="url">Hexo + Github + next 搭建博客</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T16:01:12+08:00">
+                2018-07-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>把自己的blog变得好看，而且易于管理</p>
+<h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><ol>
+<li><a href="http://www.cnblogs.com/fengxiongZz/p/7707568.html" target="_blank" rel="noopener">Z皓博客</a></li>
+<li><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">next</a></li>
+</ol>
+<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><pre><code># 接着上一篇的操作 在blog目录下 右键点击Git Base Here
+git clone https://github.com/iissnan/hexo-theme-next themes/next      
+</code></pre><h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
+<li><p>配置blog目录下的_config.yml</p>
+<pre><code>theme: next        # 选择主题为next
+
+title: Blog        # 设置Blog主题
+subtitle:
+description:
+author: speakfly   # 设置作者名
+language: zh-Hans  # 设置为中文
+timezone:
+</code></pre></li>
+<li><p>配置blog/theme/next目录下的_config.yml</p>
+<pre><code>#设置显示菜单
+menu:
+home: / || home
+about: /about/ || user
+tags: /tags/ || tags
+#categories: /categories/ || th
+archives: /archives/ || archive
+</code></pre></li>
+<li><p>生成显示标签的页面</p>
+<pre><code>hexo new page tags # 会生成tags文件夹和index.html文件
+
+# 修改 blog/source/tags/index.html
+
+---
+title: tags
+date: 2018-07-12 14:29:25
+type: &quot;tags&quot;
+---
+</code></pre></li>
+<li><p>生成显示about的页面</p>
+<pre><code>hexo new page about
+
+# 修改 blog/source/about/index.html
+
+---
+title: about
+date: 2018-07-12 14:31:33
+---
+#关于我
+一个学习前端知识的小菜鸟
+
+email: 1090384046@qq.com
+</code></pre></li>
+<li><p>生成静态文件并部署到远程仓库</p>
+<pre><code>hexo g -d
+</code></pre></li>
+<li><p>在浏览器输入  https://用户名.github.io</p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/12/blog_01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/12/blog_01/" itemprop="url">Hexo + Github + next 搭建博客</a></h1>
         
 
         <div class="post-meta">
@@ -320,7 +497,69 @@
       
         
           
-            <h1 id="大家好"><a href="#大家好" class="headerlink" title="大家好"></a>大家好</h1><p>我是渣渣辉</p>
+            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>搭建自己的博客方便自己写笔记</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
+<li><a href="http://www.cnblogs.com/fengxiongZz/p/7707219.html" target="_blank" rel="noopener">Z皓博客</a></li>
+<li><a href="https://hexo.io/zh-cn/docs/commands.html" target="_blank" rel="noopener">hexo</a></li>
+</ol>
+<h1 id="实验环境-window"><a href="#实验环境-window" class="headerlink" title="实验环境(window)"></a>实验环境(window)</h1><ol>
+<li><a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js</a></li>
+<li><a href="https://git-scm.com/" target="_blank" rel="noopener">git</a></li>
+<li><a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="noopener">hexo</a> <code>npm install -g hexo-cli</code></li>
+<li><a href="https://atom.io/" target="_blank" rel="noopener">atom</a></li>
+<li><p>验证是否安装成功(在cmd里面执行)</p>
+<pre><code>node -v
+git --version
+hexo -v
+</code></pre></li>
+<li>注册GitHub账号，并创建仓库命名为：账号.github.io</li>
+</ol>
+<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
+<li><p>初体验</p>
+<pre><code>hexo init blog   #创建工程
+cd blog
+hexo g -d        #g生成静态文件  -d 是部署到远程代理(现在还没有设置远程代理)
+hexo s           #开启服务 可以使用浏览器登陆 http://locahost:4000
+</code></pre></li>
+<li><p>部署远程代理</p>
+<ol>
+<li><p>git的基本配置</p>
+<pre><code>git config --global user.name &quot;your_name&quot;  #your_name改成自己的名字比如&quot;ming&quot;, 下同
+git config --global user.email &quot;your_email&quot;
+
+cd ~/.ssh
+ssh-keygen -t rsa -C &quot;your_email&quot;     #生成公共密钥 默认路径：`C:\Users\Administrator\.ssh`
+eval &quot;$(ssh-agent -s)&quot;   #添加密钥到ssh-agent
+ssh-add ~/.ssh/id_rsa    #添加生成的SSH-KEY到ssh-agent
+
+#登录Github，点击头像下的settings，添加ssh
+#将.ssh文件夹下的id_rsa.pub 的所有内容复制上去
+</code></pre><ol start="2">
+<li><p>验证</p>
+<pre><code>ssh -T git@github.com
+</code></pre></li>
+<li><p>配置远程代理 Deployment(注意下面的代码中speakfly是我的github用户命需要替换成自己的)</p>
+<pre><code>deploy:
+type: git
+repository: git@github.com:speakfly/speakfly.github.io.git
+branch: master
+</code></pre></li>
+<li><p>安装自动上传文件的插件</p>
+<pre><code>npm install hexo-deployer-git --save
+</code></pre></li>
+<li><p>新建一篇博客(生成的文件在 <code>_post</code>目录下)用atom软件进行编辑,需学习<a href="http://www.markdown.cn/" target="_blank" rel="noopener">markdown语法</a></p>
+<pre><code>hexo new post &quot;blog_name&quot;
+</code></pre></li>
+<li><p>生成静态文件和部署网站到远程代理</p>
+<pre><code>hexo d -g
+</code></pre></li>
+<li><p>在浏览器输入  https://用户名.github.io</p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
 
           
         
@@ -530,7 +769,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -543,7 +782,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
