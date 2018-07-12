@@ -249,6 +249,144 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/12/解决github访问慢/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/12/解决github访问慢/" itemprop="url">解决GitHub访问慢</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T16:29:00+08:00">
+                2018-07-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>认识到GitHub访问比较慢 很影响效率</p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><blockquote>
+<p>hosts文件</p>
+</blockquote>
+<pre><code>当用户在浏览器中输入一个需要登录的网址时，系统会首先自动从Hosts文件中寻找对应的IP地址，
+一旦找到，系统会立即打开对应网页，如果没有找到，则系统会再将网址提交DNS域名解析服务器进行
+IP地址的解析。
+</code></pre><h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
+<li><p>查询<code>github.global.ssl.fastly.NET</code>对应的ip<a href="http://tool.chinaz.com/dns" target="_blank" rel="noopener">查询链接</a></p>
+</li>
+<li><p>修改hosts文件<code>C:\Windows\System32\drivers\etc\hosts</code></p>
+<pre><code>151.101.77.194 github.global.ssl.fastly.Net
+</code></pre></li>
+</ol>
+<h1 id="可能会遇到的问题"><a href="#可能会遇到的问题" class="headerlink" title="可能会遇到的问题"></a>可能会遇到的问题</h1><ol>
+<li><p>权限</p>
+<pre><code>点击host文件，右键属性，安全，点击Users, 编辑， 完全控制，应用
+</code></pre></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/12/blog_02/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -268,7 +406,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/12/blog_02/" itemprop="url">Hexo + Github + next 搭建博客</a></h1>
+                <a class="post-title-link" href="/2018/07/12/blog_02/" itemprop="url">Hexo + Github + next 搭建博客（进阶）</a></h1>
         
 
         <div class="post-meta">
@@ -445,7 +583,7 @@ email: 1090384046@qq.com
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/12/blog_01/" itemprop="url">Hexo + Github + next 搭建博客</a></h1>
+                <a class="post-title-link" href="/2018/07/12/blog_01/" itemprop="url">Hexo + Github + next 搭建博客（基础）</a></h1>
         
 
         <div class="post-meta">
@@ -639,7 +777,7 @@ branch: master
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T13:16:22+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T11:21:39+08:00">
                 2018-07-12
               </time>
             
@@ -769,7 +907,7 @@ branch: master
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
