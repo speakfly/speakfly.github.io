@@ -249,6 +249,1114 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/14/模拟登陆教务管理系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/14/模拟登陆教务管理系统/" itemprop="url">模拟登陆教务管理系统</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-14T20:42:00+08:00">
+                2018-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>巩固一下模拟登陆(教务管理系统不用验证码)</p>
+<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
+<li><p>获取登陆链接 与 数据 1</p>
+<ol>
+<li><a href="http://jwgl.zqu.edu.cn/" target="_blank" rel="noopener">http://jwgl.zqu.edu.cn/</a></li>
+<li>按下F12键 选择网络</li>
+<li>输入账号和密码和验证码 登陆</li>
+<li>获得post文件 参看参数  和 消息头(本以为快弄好了)</li>
+<li>但是没有查看到参数 那么肯定就不是这个url了</li>
+<li>下一步分析一下html文件</li>
+</ol>
+</li>
+</ol>
+<ol start="2">
+<li><p>获取登陆链接 与 数据 2</p>
+<ol>
+<li><a href="http://jwgl.zqu.edu.cn/" target="_blank" rel="noopener">http://jwgl.zqu.edu.cn/</a></li>
+<li>按下F12键 选择网络 选择查看器左边的鼠标定位 定位到表单</li>
+<li>发现 账号的id是account,密码的id是 password,url=””</li>
+<li>我尝试着提交上去  登陆不了</li>
+<li>那么我猜测是用到js的原因，接下来我获取 <a href="http://jwgl.zqu.edu.cn/" target="_blank" rel="noopener">http://jwgl.zqu.edu.cn/</a> 的response.text保存到文本里准备分析</li>
+<li><p>搜索”POST” 获取一下代码</p>
+<pre><code> $.ajax({
+url:&quot;/login!fetchMm.action&quot;,
+type:&quot;POST&quot;,
+data:{
+  account:account,
+  mmtip:mmtip,
+  verifycode:verifycode
+},
+dataType:&quot;json&quot;,
+complete:function(){
+  layer.close(l_index);
+},
+success:function(result){
+  if(result.status == &apos;y&apos;){//成功
+    layer.alert(&quot;密码重置成功：&quot;+result.msg+&quot;，&lt;br&gt;登陆后请尽快修改&quot;,7,function(){layer.closeAll();});
+  }else{//失败
+    changeVerifyCode();
+    layer.alert(result.msg);
+  }
+ },
+ error:function(){
+  layer.alert(&quot;登录超时，请稍后重试！&quot;);
+  }
+ });
+  }
+</code></pre></li>
+<li><p>通过上面代码可以看出<br> url:<a href="http://jwgl.zqu.edu.cn/login!fetchMm.action" target="_blank" rel="noopener">http://jwgl.zqu.edu.cn/login!fetchMm.action</a><br> data:account， mmtip, verifycode</p>
+</li>
+<li><p>分别找account,mmtip,verifycode的赋值情况<br> 发现account就是账号，mmtip就是密码 verifycode是空值</p>
+</li>
+</ol>
+</li>
+<li><p>获取了url,data 就可以登陆了，下面是代码</p>
+<pre><code>import requests
+
+headers = {
+    &apos;User-Agent&apos;: &apos;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0&apos;,
+    &apos;Connection&apos;: &apos;keep-alive&apos;,
+    &apos;ConTent-Type&apos;: &apos;application/x-www-form-urlencoded; charset=UTF-8&apos;,
+    &apos;Host&apos;: &apos;jwgl.zqu.edu.cn&apos;,
+}
+
+data = {
+    &apos;account&apos;: &apos;xxxxx&apos;,  #账号
+    &apos;pwd&apos;: &apos;xxxxx&apos;,      #密码
+    &apos;verifycode&apos;: &apos;&apos;,
+}
+
+s = requests.Session()
+def login(account, pwd):
+    data = {
+        &apos;account&apos;: account,
+        &apos;pwd&apos;: pwd,
+        &apos;verifycode&apos;: &apos;&apos;,
+    }
+    url = &apos;http://jwgl.zqu.edu.cn/login!doLogin.action&apos;
+    response = s.post(url, headers=headers, data=data)
+</code></pre></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/14/锐捷自动登陆/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/14/锐捷自动登陆/" itemprop="url">锐捷自动登陆</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-14T19:53:00+08:00">
+                2018-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>因为学校网络原因，每次开机都需要登陆才能联网</p>
+<p>学习了爬虫，想要实现自动登陆</p>
+<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
+<li><p>获取登陆链接</p>
+<ol>
+<li><a href="http://enet.10000.gd.cn:10001/zq/zq251/index.jsp?wlanacip=119.146.99.27&amp;wlanuserip=10.85.4.40" target="_blank" rel="noopener">http://enet.10000.gd.cn:10001/zq/zq251/index.jsp?wlanacip=119.146.99.27&amp;wlanuserip=10.85.4.40</a></li>
+<li>按下F12 选择网络  </li>
+<li>输入账号和密码和验证码 登陆</li>
+<li><p>获得post文件 参看参数  和 消息头</p>
+<p> url: <a href="http://enet.10000.gd.cn:10001/login.do" target="_blank" rel="noopener">http://enet.10000.gd.cn:10001/login.do</a></p>
+<p> data: edubas, eduuser, password1 patch, rand, userName1  (其中rand是验证码是随机的，其他都是固定值)</p>
+</li>
+<li>也就是说我们只需要 requests.post(url,data=data,headers=headers) 就能模拟登陆了</li>
+</ol>
+</li>
+<li><p>获取图片验证码</p>
+<ol>
+<li><p>点击 网络 图片 查找验证码图片 获得url</p>
+<blockquote>
+<p>url:<a href="http://enet.10000.gd.cn:10001/common/image.jsp?time=1531570000864" target="_blank" rel="noopener">http://enet.10000.gd.cn:10001/common/image.jsp?time=1531570000864</a></p>
+</blockquote>
+<blockquote>
+<p>发现获取图片的链接有一个参数 time</p>
+</blockquote>
+<blockquote>
+<p>先不管time 看一下 <a href="http://enet.10000.gd.cn:10001/common/image.jsp" target="_blank" rel="noopener">http://enet.10000.gd.cn:10001/common/image.jsp</a> 能不能获取图片</p>
+</blockquote>
+<blockquote>
+<p>发现果真能获取的了(如果获取不了的话还要分析time的值是如何获取的)</p>
+</blockquote>
+</li>
+<li><p>处理验证码图片获取验证码</p>
+<blockquote>
+<p>正常来说 tesserocr <code>pip install tesserocr pillow</code>就可以安装了<br>但是在win10环境下 需要安装 Microsoft Visual C++ 14.0 所以我换另一种方法<br>用 python 去调用 <a href="http://digi.bib.uni-mannheim.de/tesseract" target="_blank" rel="noopener">tesserorcr.exe</a>程序<br>需要设置tesserocr的环境变量<br>cmd上的tesserocr的命令是<code>tesserocr xx.jpg xx</code>  会生成xx.txt文件</p>
+</blockquote>
+<pre><code>cmd = &quot;tesseract &quot; + IMAGE_URL + &quot; &quot; + TXT_URL[:-4]         #因为会补全.txt 所以去掉TXT_URL最后4个字符
+os.environ.setdefault(&quot;TESSDATA_PREFIX&quot;, &quot;C:\Program Files (x86)\Tesseract-OCR&quot;) # 设置环境变量
+os.system(cmd)                                                                   # 调用命名
+</code></pre><blockquote>
+<p>打开xx.txt发现果真就是4位验证码<br>但是需要注意如果使用<code>with open(&#39;xx.txt&#39;) as f:</code>获取验证码的时候，f.read()返回的是6位字符 需要进行截取f.read()[:4]</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>代码</p>
+<pre><code>import os
+import requests
+from PIL import Image
+import sys
+
+headers = {
+    &apos;User-Agent&apos;: &apos;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36&apos;,
+    &apos;Accept&apos;: &apos;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&apos;,
+    &apos;Connection&apos;: &apos;keep-alive&apos;,
+    &apos;Host&apos;: &apos;enet.10000.gd.cn:10001&apos;,
+}
+
+IP = &quot;xxx.xxx.xxx.xxx&quot;               #需要修改成自己的ip
+ID = &quot;xxxxxxxxxx&quot;                    #需要修改成自己的学号
+PASSWORD1 = &quot;xxxxxxxx&quot;               #需要修改自己的密码 这个密码是经过加密的，可以在浏览器查看
+</code></pre></li>
+</ol>
+<pre><code>PATH = sys.path[0]                       #获取文件目录路径
+IMAGE_URL = sys.path[0] + &quot;\\test.jpg&quot;   #设定图片路径
+TXT_URL = sys.path[0] + &quot;\\test.txt&quot;     #设置文本路径
+s = requests.Session()                   #保持会话
+
+
+def get_image():
+    &quot;&quot;&quot;获取验证图片&quot;&quot;&quot;
+    image = &apos;http://enet.10000.gd.cn:10001/common/image.jsp&apos;
+    response = s.get(image, headers=headers)
+
+    &quot;&quot;&quot;保存图片&quot;&quot;&quot;
+    if response.status_code == 200:
+        with open(IMAGE_URL, &apos;wb&apos;) as f:
+            f.write(response.content)
+    else:
+        print(&apos;获取图片失败&apos;)
+
+
+def get_random():
+    &quot;&quot;&quot;获取验证码&quot;&quot;&quot;
+    cmd = &quot;tesseract &quot; + IMAGE_URL + &quot; &quot; + TXT_URL[:-4]       # 设置windwo的tesseract命令 tesseract xx.jpg xx(会自动补全.txt后缀)
+    os.environ.setdefault(&quot;TESSDATA_PREFIX&quot;, &quot;C:\Program Files (x86)\Tesseract-OCR&quot;) # 设置环境变量
+    os.system(cmd)                                                                   # 调用命名
+    time.sleep(1)
+    with open(TXT_URL) as f:
+        random = f.read()
+    return random[:4]
+
+def check():
+    &quot;&quot;&quot;验证&quot;&quot;&quot;
+    random = get_random()                                #获取验证码
+    url = &apos;http://enet.10000.gd.cn:10001/login.do&apos;
+    data = {
+        &apos;edubas&apos;: &apos;119.146.99.27&apos;,
+        &apos;eduuser&apos;: IP,
+        &apos;password1&apos;: PASSWORD1,
+        &apos;patch&apos;: &apos;wifi&apos;,
+        &apos;rand&apos;: random,
+        &apos;userName1&apos;: ID,
+    }
+    response =s.post(url, headers=headers, data=data)
+    # print(response.text)
+    if response.status_code == 200:
+        print(&apos;锐捷登陆成功&apos;)
+
+if __name__ == &quot;__main__&quot;:
+
+    get_image()
+    check()
+</code></pre><h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><pre><code>经过这次实验，我更加熟悉模拟登陆的流程， 使用会话保持 requests.Session()会免去很多麻烦
+读取xx.txt 文件需要检查一下字符 特别是换行，空格，tab 
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/14/Selenium/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/14/Selenium/" itemprop="url">Selenium</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-14T14:33:12+08:00">
+                2018-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>了解Selenium 模拟浏览器运行的方式实现</p>
+<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
+<li><p>Selenium打开浏览器并访问页面</p>
+<pre><code># 打开各种浏览器
+from selenium import webdriver
+
+browser = webdriver.Chrome()
+browser = webdriver.Firefox()
+browser = webdriver.Edge()
+browser = webdriver.PhantomJS()
+browser = webdriver.Safari()
+
+#访问页面
+browser = webdriver.Firefox()
+browser.get(&apos;https://www.taobao.com&apos;)
+print(browser.page_source)
+browser.close()
+</code></pre></li>
+<li><p>获取节点</p>
+<pre><code>#获取节点
+input_first = browser.find_element_by_id(&apos;q&apos;)
+input_second = browser.find_element_by_css_selector(&apos;#q&apos;)
+input_third = browser.find_element_by_xpath(&apos;//*[@id=&quot;q&quot;]&apos;)
+# find_element_by_name
+# find_element_by_class_name
+
+# 还提供find_element()传入两个参数(查找方式By和值)
+# 例如：find_element(By.ID, id)
+
+# 查找多个节点 find_elements()
+</code></pre></li>
+<li><p>节点交互</p>
+<pre><code>import time
+form selenium import webdriver
+
+input = browser.find_element(By.ID, &apos;q&apos;)
+input.send_keys(&apos;ipthon&apos;)
+time.sleep(1)
+input.clear()
+input.send_keys(&apos;iPad&apos;)
+</code></pre></li>
+<li><p>动作链</p>
+<pre><code>from selenium import webdriver
+from selenium.webdriver import ActionChains
+
+browser = webdriver.Firefox()
+url = &quot;http://wwww.runoob.com/try/try.php?filename=jqueryui-api-drappable&quot;
+browser.get(url)
+browser.switch_to.frame(&apos;i&apos;)
+
+source = browser.find_element(By.CSS_SELECTOR, &apos;#draggable&apos;)
+target = browser.find_element(By.CSS_SELECTOR, &apos;#droppable&apos;)
+actions = ActionChains(browser)       #主要是这三句
+actions.drag_and_drop(source, target)
+actions.perform()
+</code></pre></li>
+<li><p>执行javascript</p>
+<pre><code>browser.execute_script(&apos;window.scrollTo(0, document.body.scrollHeight)&apos;)
+browser.execute_script(&apos;alter(&quot;To Bottom&quot;)&apos;)
+</code></pre></li>
+<li><p>获取节点信息</p>
+<pre><code># 获取属性值
+get_attribute(&apos;class&apos;)
+
+# 获取文本值
+
+input = browser.find_element(By.ID, &apos;id&apos;)
+print(input.text)
+
+# 获取id, 位置, 标签和大小
+input = browser.find_element(By.CLASS, &apos;zu-top-add-question&apos;)
+input.id
+input.location
+input.tag_name
+input.size
+</code></pre></li>
+<li><p>切换Frame</p>
+<pre><code>brower.switch_to.frame(&apos;iframeResult&apos;)
+bowser.switch_to.parent_frame()
+</code></pre></li>
+<li><p>延时等待</p>
+<pre><code>#访问网页的时候，我们需要等网页加载好了才能进行下一步的处理
+#那么这涉及到我们要等到什么时候才知道加载完成
+
+# 隐式等待 使用查找节点的方法 如果超时了就证明加载没完成
+
+from selenium import webdriver
+
+brower = webdriver.Firefox()
+brower.implicitly_wait(10) #默认值为0
+brower.get(&apos;https://www.zhihu.com/explore&apos;)
+input = brower.find_element(By.CLASS, &apos;zu-top-add-question&apos;)
+print(input)
+
+# 显式等待
+# 我们比较常用的是显式等待  同样的原理但是如果找不到节点会抛出异常
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+
+brower = webdriver.Firefox()
+brower.get(&apos;https://www.taobao.com&apos;)
+wait = WebDriverWait(brower, 10)   #主要是这两句
+input = wait.until(EC.presence_of_element_located((By.ID, &apos;q&apos;)))
+button = wait.until(EC.element_to_be_clickable(By.CSS_SELECTOR, &apos;.btn-search&apos;)))
+print(input, button)
+
+# 还有其他等待条件 我就不一一表明
+</code></pre></li>
+<li><p>前进和后退</p>
+<pre><code># brower.get(url) 等访问多个url后可以前进或后退
+browser.back()
+browser.forward()
+</code></pre></li>
+<li><p>Cookies</p>
+<pre><code>browser.get_cookies() #获取cookies
+browser.add_cookies({&apos;name&apos;: &apos;name&apos;,})
+brower.delete_all_cookies()
+</code></pre></li>
+<li><p>选项卡管理</p>
+<pre><code>browser.execute_script(&apos;window.open()&apos;)
+browser.switch_to_window(browser.window_handles[1])
+</code></pre></li>
+<li><p>异常管理</p>
+<pre><code>from selenium import webdriver
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
+
+brower = webdriver.Firefox()
+try:
+  brows.get(&apos;https://www.baidu.com&apos;)
+except TimeoutException:
+  print(&apos;Time Out&apos;)
+try:
+  browser.find_element(By.ID, &apos;hello&apos;)
+except NoSuchElementException:
+  print(&apos;No Element&apos;)
+finally:
+  browser.close()
+</code></pre></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/14/ajax爬虫/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/14/ajax爬虫/" itemprop="url">ajax爬虫</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-14T10:01:12+08:00">
+                2018-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>了解爬虫是如何爬取ajax文件</p>
+<h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><ol>
+<li>《python3网络爬虫开发与实战》</li>
+</ol>
+<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
+<li><p>找ajax文件</p>
+<ol>
+<li>浏览器打开<a href="https://m.weibo.cn/u/2830678474?sudaref=login.sina.com.cn" target="_blank" rel="noopener">崔庆才</a>右键检查元素</li>
+<li>点击网络，XHR, 响应，查看XHR响应里面有没有自己想要的信息</li>
+</ol>
+</li>
+<li><p>ajax结果提取</p>
+<ol>
+<li><p>分析请求链接解析参数</p>
+<blockquote>
+<p>例如</p>
+</blockquote>
+<blockquote>
+<p><a href="https://m.weibo.cn/api/container/getIndex?containerid=2304132830678474_-_WEIBO_SECOND_PROFILE_WEIBO&amp;page_type=03&amp;page=2" target="_blank" rel="noopener">https://m.weibo.cn/api/container/getIndex?containerid=2304132830678474_-_WEIBO_SECOND_PROFILE_WEIBO&amp;page_type=03&amp;page=2</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://m.weibo.cn/api/container/getIndex?containerid=2304132830678474_-_WEIBO_SECOND_PROFILE_WEIBO&amp;page_type=03&amp;page=3" target="_blank" rel="noopener">https://m.weibo.cn/api/container/getIndex?containerid=2304132830678474_-_WEIBO_SECOND_PROFILE_WEIBO&amp;page_type=03&amp;page=3</a></p>
+</blockquote>
+<blockquote>
+<p>分析结果 page是不一样的</p>
+</blockquote>
+</li>
+<li><p>分析内容方便提取信息</p>
+<blockquote>
+<p>text : data  cards 1 mblog text<br>attitudes_acount(点赞数) : data  cards 1  mblog attitudes_acount</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>代码</p>
+<pre><code>import requests
+url = &apos;https://m.weibo.cn/api/container/getIndex&apos;
+
+headers = {
+    &apos;Host&apos;: &apos;m.weibo.cn&apos;,
+    &apos;User-Agent&apos;: &apos;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36&apos;,
+    &apos;X-Requested-With&apos;: &apos;XMLHttpRequest&apos;,
+}
+
+def get_page(page):
+    params = {
+        &apos;containerid&apos;: &apos;2304132830678474_-_WEIBO_SECOND_PROFILE_WEIBO&apos;,
+        &apos;page_type&apos;: &apos;03&apos;,
+        &apos;page&apos;: page
+    }
+
+    try:
+        response = requests.get(url, params=params)
+        if response.status_code == 200:
+            return response.json()
+    except requests.ConnectionError as e:
+        print(&apos;Error&apos;, e.args)
+
+from pyquery import PyQuery as pq
+
+def parse_pase(json):
+    if json:
+        items = json.get(&apos;data&apos;).get(&apos;cards&apos;)
+        for item in items:
+            item = item.get(&apos;mblog&apos;)
+            weibo = {}
+            weibo[&apos;id&apos;] = item.get(&apos;id&apos;, &apos;NULL&apos;)
+            if(weibo[&apos;id&apos;] == &apos;NULL&apos;):
+                continue
+            weibo[&apos;text&apos;] = pq(item.get(&apos;text&apos;)).text()
+            weibo[&apos;attitudes_count&apos;] = item.get(&apos;attitudes_count&apos;)
+            yield weibo
+
+if __name__ == &quot;__main__&quot;:
+
+    for page in range(2, 20):
+        json = get_page(page)
+        results = parse_pase(json)
+        for result in results:
+            print(result)
+</code></pre></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/13/爬取今日头条街拍/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/13/爬取今日头条街拍/" itemprop="url">爬取今日头条街拍</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-13T11:28:12+08:00">
+                2018-07-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>进一步了解Ajax的爬取</p>
+<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
+<li><p>抓取分析</p>
+<pre><code>1. 分析链接
+
+    https://www.toutiao.com/search_content/?offset=0&amp;format=json&amp;keyword=街拍&amp;autoload=true&amp;count=20&amp;cur_tab=3&amp;from=gallery
+
+    https://www.toutiao.com/search_content/?offset=20&amp;format=json&amp;keyword=街拍&amp;autoload=true&amp;count=20&amp;cur_tab=3&amp;from=gallery
+
+    offset在变化
+
+2. 分析内容
+
+    url        : data 0 image_list 0 url
+    title      : data 0 image_list title
+</code></pre></li>
+<li><p>写代码</p>
+<pre><code>import requests
+
+def get_page(offset):
+
+    # https://www.toutiao.com/search_content/?offset=0&amp;format=json&amp;keyword=街拍&amp;autoload=true&amp;count=20&amp;cur_tab=3&amp;from=gallery
+    params = {
+        &apos;offest&apos;: offset,
+        &apos;format&apos;: &apos;json&apos;,
+        &apos;keyword&apos;: &apos;街拍&apos;,
+        &apos;autoload&apos;: &apos;true&apos;,
+        &apos;count&apos;: &apos;20&apos;,
+        &apos;cur_tab&apos;: &apos;3&apos;,
+        &apos;from&apos;: &apos;gallery&apos;
+    }
+    url = &apos;https://www.toutiao.com/search_content/&apos;
+
+    try:
+        response = requests.get(url, params=params)
+        if response.status_code == 200:
+            return response.json()
+    except requests.ConnectionError:
+        return None
+
+def get_images(json):
+      # url        : data 0 image_list 0 url
+      # title      : data 0 title
+    if json.get(&apos;data&apos;):
+        datas = json.get(&apos;data&apos;)
+        for item in datas:
+            title = item.get(&apos;title&apos;)
+            images = item.get(&apos;image_list&apos;)
+            for image in images:
+                yield{
+                    &apos;image&apos;: &apos;https:&apos; +  image.get(&apos;url&apos;),
+                    &apos;title&apos;: title
+                }
+
+import os
+from hashlib import md5
+
+def save_image(item):
+    if not os.path.exists(item.get(&apos;title&apos;)):
+        os.mkdir(item.get(&apos;title&apos;))
+
+    try:
+        response = requests.get(item.get(&apos;image&apos;))
+        if response.status_code == 200:
+            file_path = &apos;{0}/{1}.{2}&apos;.format(item.get(&apos;title&apos;), md5(response.content).hexdigest(), &apos;.jpg&apos;)
+            if not os.path.exists(file_path):
+                with open(file_path, &apos;wb&apos;) as f:
+                    f.write(response.content)
+
+            else:
+                print(&apos;Already Downloaded&apos;, file_path)
+    except requests.ConnectionError:
+        print(&apos;Failed to save Image&apos;)
+
+from multiprocessing.pool import Pool
+
+def main(offset):
+    json = get_page(offset)
+    items = get_images(json)
+    for item in items:
+        print(item)
+        save_image(item)
+
+GROUP_START = 1
+GROUP_END = 20
+
+if __name__ == &apos;__main__&apos;:
+    pool = Pool()
+    groups = ([x*20 for x in range(GROUP_START,  GROUP_END)])
+    pool.map(main, groups)
+    pool.close()
+    pool.join()
+</code></pre></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/12/解决github访问慢/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -907,7 +2015,7 @@ branch: master
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -920,7 +2028,7 @@ branch: master
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

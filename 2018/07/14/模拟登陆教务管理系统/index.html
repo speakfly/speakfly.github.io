@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="blog," />
+  <meta name="keywords" content="爬虫," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="目的把自己的blog变得好看，而且易于管理 学习资料 Z皓博客 next  环境配置# 接着上一篇的操作 在blog目录下 右键点击Git Base Here git clone https://github.com/iissnan/hexo-theme-next themes/next       实践操作 配置blog目录下的_config.yml theme: next        # 选">
-<meta name="keywords" content="blog">
+<meta name="description" content="目的巩固一下模拟登陆(教务管理系统不用验证码) 实践操作 获取登陆链接 与 数据 1  http://jwgl.zqu.edu.cn/ 按下F12键 选择网络 输入账号和密码和验证码 登陆 获得post文件 参看参数  和 消息头(本以为快弄好了) 但是没有查看到参数 那么肯定就不是这个url了 下一步分析一下html文件     获取登陆链接 与 数据 2  http://jwgl.zqu.ed">
+<meta name="keywords" content="爬虫">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo + Github + next 搭建博客（进阶）">
-<meta property="og:url" content="http://yoursite.com/2018/07/12/blog_02/index.html">
+<meta property="og:title" content="模拟登陆教务管理系统">
+<meta property="og:url" content="http://yoursite.com/2018/07/14/模拟登陆教务管理系统/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="目的把自己的blog变得好看，而且易于管理 学习资料 Z皓博客 next  环境配置# 接着上一篇的操作 在blog目录下 右键点击Git Base Here git clone https://github.com/iissnan/hexo-theme-next themes/next       实践操作 配置blog目录下的_config.yml theme: next        # 选">
+<meta property="og:description" content="目的巩固一下模拟登陆(教务管理系统不用验证码) 实践操作 获取登陆链接 与 数据 1  http://jwgl.zqu.edu.cn/ 按下F12键 选择网络 输入账号和密码和验证码 登陆 获得post文件 参看参数  和 消息头(本以为快弄好了) 但是没有查看到参数 那么肯定就不是这个url了 下一步分析一下html文件     获取登陆链接 与 数据 2  http://jwgl.zqu.ed">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-12T08:28:54.796Z">
+<meta property="og:updated_time" content="2018-07-14T13:24:45.342Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo + Github + next 搭建博客（进阶）">
-<meta name="twitter:description" content="目的把自己的blog变得好看，而且易于管理 学习资料 Z皓博客 next  环境配置# 接着上一篇的操作 在blog目录下 右键点击Git Base Here git clone https://github.com/iissnan/hexo-theme-next themes/next       实践操作 配置blog目录下的_config.yml theme: next        # 选">
+<meta name="twitter:title" content="模拟登陆教务管理系统">
+<meta name="twitter:description" content="目的巩固一下模拟登陆(教务管理系统不用验证码) 实践操作 获取登陆链接 与 数据 1  http://jwgl.zqu.edu.cn/ 按下F12键 选择网络 输入账号和密码和验证码 登陆 获得post文件 参看参数  和 消息头(本以为快弄好了) 但是没有查看到参数 那么肯定就不是这个url了 下一步分析一下html文件     获取登陆链接 与 数据 2  http://jwgl.zqu.ed">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/12/blog_02/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/14/模拟登陆教务管理系统/"/>
 
 
 
 
 
-  <title>Hexo + Github + next 搭建博客（进阶） | Blog</title>
+  <title>模拟登陆教务管理系统 | Blog</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/12/blog_02/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/14/模拟登陆教务管理系统/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="speakfly">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hexo + Github + next 搭建博客（进阶）</h1>
+          <h1 class="post-title" itemprop="name headline">模拟登陆教务管理系统</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T16:01:12+08:00">
-                2018-07-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-14T20:42:00+08:00">
+                2018-07-14
               </time>
             
 
@@ -320,63 +320,86 @@
       
 
       
-        <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>把自己的blog变得好看，而且易于管理</p>
-<h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><ol>
-<li><a href="http://www.cnblogs.com/fengxiongZz/p/7707568.html" target="_blank" rel="noopener">Z皓博客</a></li>
-<li><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">next</a></li>
+        <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>巩固一下模拟登陆(教务管理系统不用验证码)</p>
+<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
+<li><p>获取登陆链接 与 数据 1</p>
+<ol>
+<li><a href="http://jwgl.zqu.edu.cn/" target="_blank" rel="noopener">http://jwgl.zqu.edu.cn/</a></li>
+<li>按下F12键 选择网络</li>
+<li>输入账号和密码和验证码 登陆</li>
+<li>获得post文件 参看参数  和 消息头(本以为快弄好了)</li>
+<li>但是没有查看到参数 那么肯定就不是这个url了</li>
+<li>下一步分析一下html文件</li>
 </ol>
-<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><pre><code># 接着上一篇的操作 在blog目录下 右键点击Git Base Here
-git clone https://github.com/iissnan/hexo-theme-next themes/next      
-</code></pre><h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
-<li><p>配置blog目录下的_config.yml</p>
-<pre><code>theme: next        # 选择主题为next
-
-title: Blog        # 设置Blog主题
-subtitle:
-description:
-author: speakfly   # 设置作者名
-language: zh-Hans  # 设置为中文
-timezone:
-</code></pre></li>
-<li><p>配置blog/theme/next目录下的_config.yml</p>
-<pre><code>#设置显示菜单
-menu:
-home: / || home
-about: /about/ || user
-tags: /tags/ || tags
-#categories: /categories/ || th
-archives: /archives/ || archive
-</code></pre></li>
-<li><p>生成显示标签的页面</p>
-<pre><code>hexo new page tags # 会生成tags文件夹和index.html文件
-
-# 修改 blog/source/tags/index.html
-
----
-title: tags
-date: 2018-07-12 14:29:25
-type: &quot;tags&quot;
----
-</code></pre></li>
-<li><p>生成显示about的页面</p>
-<pre><code>hexo new page about
-
-# 修改 blog/source/about/index.html
-
----
-title: about
-date: 2018-07-12 14:31:33
----
-#关于我
-一个学习前端知识的小菜鸟
-
-email: 1090384046@qq.com
-</code></pre></li>
-<li><p>生成静态文件并部署到远程仓库</p>
-<pre><code>hexo g -d
-</code></pre></li>
-<li><p>在浏览器输入  https://用户名.github.io</p>
 </li>
+</ol>
+<ol start="2">
+<li><p>获取登陆链接 与 数据 2</p>
+<ol>
+<li><a href="http://jwgl.zqu.edu.cn/" target="_blank" rel="noopener">http://jwgl.zqu.edu.cn/</a></li>
+<li>按下F12键 选择网络 选择查看器左边的鼠标定位 定位到表单</li>
+<li>发现 账号的id是account,密码的id是 password,url=””</li>
+<li>我尝试着提交上去  登陆不了</li>
+<li>那么我猜测是用到js的原因，接下来我获取 <a href="http://jwgl.zqu.edu.cn/" target="_blank" rel="noopener">http://jwgl.zqu.edu.cn/</a> 的response.text保存到文本里准备分析</li>
+<li><p>搜索”POST” 获取一下代码</p>
+<pre><code> $.ajax({
+url:&quot;/login!fetchMm.action&quot;,
+type:&quot;POST&quot;,
+data:{
+  account:account,
+  mmtip:mmtip,
+  verifycode:verifycode
+},
+dataType:&quot;json&quot;,
+complete:function(){
+  layer.close(l_index);
+},
+success:function(result){
+  if(result.status == &apos;y&apos;){//成功
+    layer.alert(&quot;密码重置成功：&quot;+result.msg+&quot;，&lt;br&gt;登陆后请尽快修改&quot;,7,function(){layer.closeAll();});
+  }else{//失败
+    changeVerifyCode();
+    layer.alert(result.msg);
+  }
+ },
+ error:function(){
+  layer.alert(&quot;登录超时，请稍后重试！&quot;);
+  }
+ });
+  }
+</code></pre></li>
+<li><p>通过上面代码可以看出<br> url:<a href="http://jwgl.zqu.edu.cn/login!fetchMm.action" target="_blank" rel="noopener">http://jwgl.zqu.edu.cn/login!fetchMm.action</a><br> data:account， mmtip, verifycode</p>
+</li>
+<li><p>分别找account,mmtip,verifycode的赋值情况<br> 发现account就是账号，mmtip就是密码 verifycode是空值</p>
+</li>
+</ol>
+</li>
+<li><p>获取了url,data 就可以登陆了，下面是代码</p>
+<pre><code>import requests
+
+headers = {
+    &apos;User-Agent&apos;: &apos;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0&apos;,
+    &apos;Connection&apos;: &apos;keep-alive&apos;,
+    &apos;ConTent-Type&apos;: &apos;application/x-www-form-urlencoded; charset=UTF-8&apos;,
+    &apos;Host&apos;: &apos;jwgl.zqu.edu.cn&apos;,
+}
+
+data = {
+    &apos;account&apos;: &apos;xxxxx&apos;,  #账号
+    &apos;pwd&apos;: &apos;xxxxx&apos;,      #密码
+    &apos;verifycode&apos;: &apos;&apos;,
+}
+
+s = requests.Session()
+def login(account, pwd):
+    data = {
+        &apos;account&apos;: account,
+        &apos;pwd&apos;: pwd,
+        &apos;verifycode&apos;: &apos;&apos;,
+    }
+    url = &apos;http://jwgl.zqu.edu.cn/login!doLogin.action&apos;
+    response = s.post(url, headers=headers, data=data)
+</code></pre></li>
 </ol>
 
       
@@ -395,7 +418,7 @@ email: 1090384046@qq.com
       
         <div class="post-tags">
           
-            <a href="/tags/blog/" rel="tag"># blog</a>
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
           
         </div>
       
@@ -408,8 +431,8 @@ email: 1090384046@qq.com
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/12/blog_01/" rel="next" title="Hexo + Github + next 搭建博客（基础）">
-                <i class="fa fa-chevron-left"></i> Hexo + Github + next 搭建博客（基础）
+              <a href="/2018/07/14/锐捷自动登陆/" rel="next" title="锐捷自动登陆">
+                <i class="fa fa-chevron-left"></i> 锐捷自动登陆
               </a>
             
           </div>
@@ -417,10 +440,6 @@ email: 1090384046@qq.com
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/12/解决github访问慢/" rel="prev" title="解决GitHub访问慢">
-                解决GitHub访问慢 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -543,7 +562,7 @@ email: 1090384046@qq.com
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习资料"><span class="nav-number">2.</span> <span class="nav-text">学习资料</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环境配置"><span class="nav-number">3.</span> <span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实践操作"><span class="nav-number">4.</span> <span class="nav-text">实践操作</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实践操作"><span class="nav-number">2.</span> <span class="nav-text">实践操作</span></a></li></ol></div>
             
 
           </div>

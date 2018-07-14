@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="blog," />
+  <meta name="keywords" content="爬虫," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="目的把自己的blog变得好看，而且易于管理 学习资料 Z皓博客 next  环境配置# 接着上一篇的操作 在blog目录下 右键点击Git Base Here git clone https://github.com/iissnan/hexo-theme-next themes/next       实践操作 配置blog目录下的_config.yml theme: next        # 选">
-<meta name="keywords" content="blog">
+<meta name="description" content="目的了解爬虫是如何爬取ajax文件 学习资料 《python3网络爬虫开发与实战》  实践操作 找ajax文件  浏览器打开崔庆才右键检查元素 点击网络，XHR, 响应，查看XHR响应里面有没有自己想要的信息   ajax结果提取  分析请求链接解析参数  例如   https://m.weibo.cn/api/container/getIndex?containerid=230413283067">
+<meta name="keywords" content="爬虫">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo + Github + next 搭建博客（进阶）">
-<meta property="og:url" content="http://yoursite.com/2018/07/12/blog_02/index.html">
+<meta property="og:title" content="ajax爬虫">
+<meta property="og:url" content="http://yoursite.com/2018/07/14/ajax爬虫/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="目的把自己的blog变得好看，而且易于管理 学习资料 Z皓博客 next  环境配置# 接着上一篇的操作 在blog目录下 右键点击Git Base Here git clone https://github.com/iissnan/hexo-theme-next themes/next       实践操作 配置blog目录下的_config.yml theme: next        # 选">
+<meta property="og:description" content="目的了解爬虫是如何爬取ajax文件 学习资料 《python3网络爬虫开发与实战》  实践操作 找ajax文件  浏览器打开崔庆才右键检查元素 点击网络，XHR, 响应，查看XHR响应里面有没有自己想要的信息   ajax结果提取  分析请求链接解析参数  例如   https://m.weibo.cn/api/container/getIndex?containerid=230413283067">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-12T08:28:54.796Z">
+<meta property="og:updated_time" content="2018-07-13T09:24:22.992Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo + Github + next 搭建博客（进阶）">
-<meta name="twitter:description" content="目的把自己的blog变得好看，而且易于管理 学习资料 Z皓博客 next  环境配置# 接着上一篇的操作 在blog目录下 右键点击Git Base Here git clone https://github.com/iissnan/hexo-theme-next themes/next       实践操作 配置blog目录下的_config.yml theme: next        # 选">
+<meta name="twitter:title" content="ajax爬虫">
+<meta name="twitter:description" content="目的了解爬虫是如何爬取ajax文件 学习资料 《python3网络爬虫开发与实战》  实践操作 找ajax文件  浏览器打开崔庆才右键检查元素 点击网络，XHR, 响应，查看XHR响应里面有没有自己想要的信息   ajax结果提取  分析请求链接解析参数  例如   https://m.weibo.cn/api/container/getIndex?containerid=230413283067">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/12/blog_02/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/14/ajax爬虫/"/>
 
 
 
 
 
-  <title>Hexo + Github + next 搭建博客（进阶） | Blog</title>
+  <title>ajax爬虫 | Blog</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/12/blog_02/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/14/ajax爬虫/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="speakfly">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hexo + Github + next 搭建博客（进阶）</h1>
+          <h1 class="post-title" itemprop="name headline">ajax爬虫</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T16:01:12+08:00">
-                2018-07-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-14T10:01:12+08:00">
+                2018-07-14
               </time>
             
 
@@ -320,63 +320,87 @@
       
 
       
-        <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>把自己的blog变得好看，而且易于管理</p>
+        <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>了解爬虫是如何爬取ajax文件</p>
 <h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><ol>
-<li><a href="http://www.cnblogs.com/fengxiongZz/p/7707568.html" target="_blank" rel="noopener">Z皓博客</a></li>
-<li><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">next</a></li>
+<li>《python3网络爬虫开发与实战》</li>
 </ol>
-<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><pre><code># 接着上一篇的操作 在blog目录下 右键点击Git Base Here
-git clone https://github.com/iissnan/hexo-theme-next themes/next      
-</code></pre><h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
-<li><p>配置blog目录下的_config.yml</p>
-<pre><code>theme: next        # 选择主题为next
-
-title: Blog        # 设置Blog主题
-subtitle:
-description:
-author: speakfly   # 设置作者名
-language: zh-Hans  # 设置为中文
-timezone:
-</code></pre></li>
-<li><p>配置blog/theme/next目录下的_config.yml</p>
-<pre><code>#设置显示菜单
-menu:
-home: / || home
-about: /about/ || user
-tags: /tags/ || tags
-#categories: /categories/ || th
-archives: /archives/ || archive
-</code></pre></li>
-<li><p>生成显示标签的页面</p>
-<pre><code>hexo new page tags # 会生成tags文件夹和index.html文件
-
-# 修改 blog/source/tags/index.html
-
----
-title: tags
-date: 2018-07-12 14:29:25
-type: &quot;tags&quot;
----
-</code></pre></li>
-<li><p>生成显示about的页面</p>
-<pre><code>hexo new page about
-
-# 修改 blog/source/about/index.html
-
----
-title: about
-date: 2018-07-12 14:31:33
----
-#关于我
-一个学习前端知识的小菜鸟
-
-email: 1090384046@qq.com
-</code></pre></li>
-<li><p>生成静态文件并部署到远程仓库</p>
-<pre><code>hexo g -d
-</code></pre></li>
-<li><p>在浏览器输入  https://用户名.github.io</p>
+<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
+<li><p>找ajax文件</p>
+<ol>
+<li>浏览器打开<a href="https://m.weibo.cn/u/2830678474?sudaref=login.sina.com.cn" target="_blank" rel="noopener">崔庆才</a>右键检查元素</li>
+<li>点击网络，XHR, 响应，查看XHR响应里面有没有自己想要的信息</li>
+</ol>
 </li>
+<li><p>ajax结果提取</p>
+<ol>
+<li><p>分析请求链接解析参数</p>
+<blockquote>
+<p>例如</p>
+</blockquote>
+<blockquote>
+<p><a href="https://m.weibo.cn/api/container/getIndex?containerid=2304132830678474_-_WEIBO_SECOND_PROFILE_WEIBO&amp;page_type=03&amp;page=2" target="_blank" rel="noopener">https://m.weibo.cn/api/container/getIndex?containerid=2304132830678474_-_WEIBO_SECOND_PROFILE_WEIBO&amp;page_type=03&amp;page=2</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://m.weibo.cn/api/container/getIndex?containerid=2304132830678474_-_WEIBO_SECOND_PROFILE_WEIBO&amp;page_type=03&amp;page=3" target="_blank" rel="noopener">https://m.weibo.cn/api/container/getIndex?containerid=2304132830678474_-_WEIBO_SECOND_PROFILE_WEIBO&amp;page_type=03&amp;page=3</a></p>
+</blockquote>
+<blockquote>
+<p>分析结果 page是不一样的</p>
+</blockquote>
+</li>
+<li><p>分析内容方便提取信息</p>
+<blockquote>
+<p>text : data  cards 1 mblog text<br>attitudes_acount(点赞数) : data  cards 1  mblog attitudes_acount</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>代码</p>
+<pre><code>import requests
+url = &apos;https://m.weibo.cn/api/container/getIndex&apos;
+
+headers = {
+    &apos;Host&apos;: &apos;m.weibo.cn&apos;,
+    &apos;User-Agent&apos;: &apos;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36&apos;,
+    &apos;X-Requested-With&apos;: &apos;XMLHttpRequest&apos;,
+}
+
+def get_page(page):
+    params = {
+        &apos;containerid&apos;: &apos;2304132830678474_-_WEIBO_SECOND_PROFILE_WEIBO&apos;,
+        &apos;page_type&apos;: &apos;03&apos;,
+        &apos;page&apos;: page
+    }
+
+    try:
+        response = requests.get(url, params=params)
+        if response.status_code == 200:
+            return response.json()
+    except requests.ConnectionError as e:
+        print(&apos;Error&apos;, e.args)
+
+from pyquery import PyQuery as pq
+
+def parse_pase(json):
+    if json:
+        items = json.get(&apos;data&apos;).get(&apos;cards&apos;)
+        for item in items:
+            item = item.get(&apos;mblog&apos;)
+            weibo = {}
+            weibo[&apos;id&apos;] = item.get(&apos;id&apos;, &apos;NULL&apos;)
+            if(weibo[&apos;id&apos;] == &apos;NULL&apos;):
+                continue
+            weibo[&apos;text&apos;] = pq(item.get(&apos;text&apos;)).text()
+            weibo[&apos;attitudes_count&apos;] = item.get(&apos;attitudes_count&apos;)
+            yield weibo
+
+if __name__ == &quot;__main__&quot;:
+
+    for page in range(2, 20):
+        json = get_page(page)
+        results = parse_pase(json)
+        for result in results:
+            print(result)
+</code></pre></li>
 </ol>
 
       
@@ -395,7 +419,7 @@ email: 1090384046@qq.com
       
         <div class="post-tags">
           
-            <a href="/tags/blog/" rel="tag"># blog</a>
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
           
         </div>
       
@@ -408,8 +432,8 @@ email: 1090384046@qq.com
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/12/blog_01/" rel="next" title="Hexo + Github + next 搭建博客（基础）">
-                <i class="fa fa-chevron-left"></i> Hexo + Github + next 搭建博客（基础）
+              <a href="/2018/07/13/爬取今日头条街拍/" rel="next" title="爬取今日头条街拍">
+                <i class="fa fa-chevron-left"></i> 爬取今日头条街拍
               </a>
             
           </div>
@@ -418,8 +442,8 @@ email: 1090384046@qq.com
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/12/解决github访问慢/" rel="prev" title="解决GitHub访问慢">
-                解决GitHub访问慢 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/07/14/Selenium/" rel="prev" title="Selenium">
+                Selenium <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -543,7 +567,7 @@ email: 1090384046@qq.com
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习资料"><span class="nav-number">2.</span> <span class="nav-text">学习资料</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#环境配置"><span class="nav-number">3.</span> <span class="nav-text">环境配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实践操作"><span class="nav-number">4.</span> <span class="nav-text">实践操作</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习资料"><span class="nav-number">2.</span> <span class="nav-text">学习资料</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实践操作"><span class="nav-number">3.</span> <span class="nav-text">实践操作</span></a></li></ol></div>
             
 
           </div>
