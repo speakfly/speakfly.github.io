@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="JavaScript," />
+  <meta name="keywords" content="爬虫," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="目的了解js 实践操作  标签             alert(&quot;Hello World&quot;);        &amp;lt;script&amp;gt; document.write(&amp;quot;&amp;lt;h1&amp;gt;这是一个标题&amp;lt;/h1&amp;gt;&amp;quot;) document.write(&amp;quot;&amp;lt;p&amp;gt;这是一个段落&amp;lt;/p&amp;gt;&amp;quot;) &amp;lt;/script&amp;gt;  s">
-<meta name="keywords" content="JavaScript">
+<meta name="description" content="目的了解scrapy 实验环境 scrapy pip install scrapyd 如果在window 下安装 scrapy 提示需要安装 Microsoft Visual C++ 14.0,解决办法如下 在国外python库搜索Twisted cp36代表python36版本，amd64代表64位  选择对应的Teisted.whl包 下载 pip install 选择对应的Teisted.w">
+<meta name="keywords" content="爬虫">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript基础">
-<meta property="og:url" content="http://yoursite.com/2018/07/15/JavaScript基础/index.html">
+<meta property="og:title" content="scrapy入门">
+<meta property="og:url" content="http://yoursite.com/2018/07/16/scrapy入门/index.html">
 <meta property="og:site_name" content="Blog">
-<meta property="og:description" content="目的了解js 实践操作  标签             alert(&quot;Hello World&quot;);        &amp;lt;script&amp;gt; document.write(&amp;quot;&amp;lt;h1&amp;gt;这是一个标题&amp;lt;/h1&amp;gt;&amp;quot;) document.write(&amp;quot;&amp;lt;p&amp;gt;这是一个段落&amp;lt;/p&amp;gt;&amp;quot;) &amp;lt;/script&amp;gt;  s">
+<meta property="og:description" content="目的了解scrapy 实验环境 scrapy pip install scrapyd 如果在window 下安装 scrapy 提示需要安装 Microsoft Visual C++ 14.0,解决办法如下 在国外python库搜索Twisted cp36代表python36版本，amd64代表64位  选择对应的Teisted.whl包 下载 pip install 选择对应的Teisted.w">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-15T05:34:01.274Z">
+<meta property="og:updated_time" content="2018-07-21T08:18:10.719Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript基础">
-<meta name="twitter:description" content="目的了解js 实践操作  标签             alert(&quot;Hello World&quot;);        &amp;lt;script&amp;gt; document.write(&amp;quot;&amp;lt;h1&amp;gt;这是一个标题&amp;lt;/h1&amp;gt;&amp;quot;) document.write(&amp;quot;&amp;lt;p&amp;gt;这是一个段落&amp;lt;/p&amp;gt;&amp;quot;) &amp;lt;/script&amp;gt;  s">
+<meta name="twitter:title" content="scrapy入门">
+<meta name="twitter:description" content="目的了解scrapy 实验环境 scrapy pip install scrapyd 如果在window 下安装 scrapy 提示需要安装 Microsoft Visual C++ 14.0,解决办法如下 在国外python库搜索Twisted cp36代表python36版本，amd64代表64位  选择对应的Teisted.whl包 下载 pip install 选择对应的Teisted.w">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/15/JavaScript基础/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/16/scrapy入门/"/>
 
 
 
 
 
-  <title>JavaScript基础 | Blog</title>
+  <title>scrapy入门 | Blog</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/15/JavaScript基础/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/16/scrapy入门/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="speakfly">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">JavaScript基础</h1>
+          <h1 class="post-title" itemprop="name headline">scrapy入门</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-15T08:06:00+08:00">
-                2018-07-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-16T23:41:12+08:00">
+                2018-07-16
               </time>
             
 
@@ -320,175 +320,110 @@
       
 
       
-        <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>了解js</p>
-<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
-<li><script> 标签
-
-     <script>
-     alert("Hello World");
-     </script>
-
-<pre><code>&lt;script&gt;
-document.write(&quot;&lt;h1&gt;这是一个标题&lt;/h1&gt;&quot;)
-document.write(&quot;&lt;p&gt;这是一个段落&lt;/p&gt;&quot;)
-&lt;/script&gt;
-</code></pre></li>
-<li><p>script代码一般放在页面底部</p>
-<pre><code>#监测触发时间并调用函数
-&lt;script&gt;
-function myFunction()
-{
-  alert(&apos;Hello World&apos;);
-}
-&lt;/script&gt;
-
-&lt;button type=&quot;button&quot;, onclick=&quot;myFunction()&quot;&gt;hello&lt;/button&gt;
-</code></pre></li>
-<li><p>引用外部js</p>
-<pre><code>&lt;script src=&quot;myScript.js&quot;&gt;&lt;/script&gt;
-</code></pre></li>
-<li><p>操作HTML元素</p>
-<pre><code>document.write(Data())
-document.getElementById(&quot;demo&quot;).innerHTML=&quot;Hello World&quot;;
-document.getElementById(id).attribute=new value   
-document.getElementById(&quot;p2&quot;).style.color= &quot;blue&quot;;
-</code></pre></li>
-<li><p>写到文档输出</p>
-<pre><code>#会覆盖已经显示的html语言
-document.write(&quot;&lt;p&gt;Hello World&lt;/p&gt;&quot;);
-</code></pre></li>
-<li><p>注释</p>
-<pre><code>单行注释 `/  /`
-多行注释 `/* */`
-</code></pre></li>
-<li><p>变量</p>
-<pre><code>var x = 5;  //声明
-x           //使用
-</code></pre></li>
-<li><p>类型</p>
-<pre><code>var cars = new Array(); //声明数组
-cars[0] = &quot;Saab&quot;; //使用
-</code></pre></li>
-<li><p>对象</p>
-<pre><code>var person = {firstname:&quot;John&quot;, lastname:&quot;Doe&quot;} //对象是一个字典 key不用双引号标注
-person.lastname      //使用
-person[&quot;lastname&quot;]   //使用
-
-person = null;       //清空对象
-</code></pre></li>
-<li><p>js的变量支持动态类型，也可以声明类型,下面例子是变量声明类型</p>
-<pre><code>var carname = new String;
-var x = new Number;
-var y = new Boolean;
-var person = new Object;
-</code></pre></li>
-<li><p>对象的操作</p>
-<pre><code># string对象的内置属性和方法
-var txt = &quot;Hello World&quot;
-txt.length
-txt.indexOf()
-txt.replace()
-txt.search()
-</code></pre></li>
-<li><p>函数</p>
-<pre><code># 函数声明
-function functionname()
-{
-
-}
-
-# 调用
-functionname()
-</code></pre></li>
+        <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>了解scrapy</p>
+<h1 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h1><ol>
+<li>scrapy <code>pip install scrapyd</code></li>
+<li>如果在window 下安装 scrapy 提示需要安装 Microsoft Visual C++ 14.0,解决办法如下</li>
+<li>在<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">国外python库</a>搜索Twisted</li>
+<li>cp36代表python36版本，amd64代表64位  选择对应的Teisted.whl包 下载</li>
+<li>pip install 选择对应的Teisted.whl包</li>
+<li><code>pip install scrapyd</code></li>
 </ol>
-<ol start="13">
-<li><p>声明 全局变量</p>
-<pre><code>carname = &quot;Volvo&quot;
+<h1 id="实践步骤"><a href="#实践步骤" class="headerlink" title="实践步骤"></a>实践步骤</h1><ol>
+<li>创建工程</li>
+<li>创建爬虫</li>
+<li>修改爬虫文件  添加 parse方法</li>
+<li>vim items.py 设置 item</li>
+<li>vim Pipeline 设置保存  保存到数据库的代码都是一样的</li>
+<li>vim settings.py  设置添加插件 并设置优先值 设置数据库的信息</li>
+<li>运行</li>
+</ol>
+<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
+<li><p>创建工程</p>
+<pre><code>scrapy startproject tutorial
 </code></pre></li>
-<li><p>if for 语句与c语言一样  </p>
-<pre><code>#支持这种写法
-for(x in person)
-{
+<li><p>创建Spider</p>
+<pre><code>cd tutorial
+scrapy genspider quotes quotes.toscrape.com
+</code></pre></li>
+<li><p>创建Item</p>
+<pre><code>#vim items.py
+import scrapy
+class QuoteItem(scrapy.Item):
+    text = scrapy.Field()
+    author = scrapy.Field()
+    tags = scrapy.Field()
+</code></pre></li>
+<li><p>解析Response</p>
+<pre><code># vim quotes.py
+from quotes.items import QuoteItem          # 注意还需要导入这个类
+def parse(self, response):
+        quotes = response.css(&apos;.quote&apos;)
+        for quote in quotes:
+            item = QuoteItem()
+            item[&apos;text&apos;] = quote.css(&apos;.text::text&apos;).extract_first()
+            item[&apos;author&apos;] = quote.css(&apos;.author::text&apos;).extract_first()
+            item[&apos;tags&apos;] = quote.css(&apos;.tags .tag::text&apos;).extract()
+            yield item     #返回的是scrapy.item子类
 
+        # scrapy.Request 是一个构造请求函数 下面的代码专用于有下一页的链接
+        next = response.css(&apos;.pager .next a::attr(&quot;href&quot;)&apos;).extract_first()
+        url = response.urljoin(next)
+        yield scrapy.Request(url=url, callback=self.parse)
+</code></pre></li>
+<li><p>使用Item Pipeline</p>
+<pre><code># vim spiders/pipelines.py
+class TextPipeline(object):
+
+    def __init__(self):
+        self.limit = 50
+
+    def process_item(self, item, spider):
+        if item[&apos;text&apos;]:
+            if len(item[&apos;text&apos;]) &gt; self.limit:
+                item[&apos;text&apos;] = item[&apos;text&apos;][0:self.limit].rstrip() + &apos;...&apos;
+                return item
+        else:
+            return DropItem(&apos;Missing Text&apos;)
+
+# 一下这段是一个通用代码  可以自己写在通用爬虫里面
+import pymongo
+
+class MongoPipeline(object):
+    def __init__(self, mongo_uri, mongo_db):
+        self.mongo_uri = mongo_uri
+        self.mongo_db = mongo_db
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            mongo_uri = crawler.settings.get(&apos;MONGO_URI&apos;),
+            mongo_db = crawler.settings.get(&apos;MONGO_DB&apos;)
+        )
+
+    def open_spider(self, spider):
+        self.client = pymongo.MongoClient(self.mongo_uri)
+        self.db = self.client[self.mongo_db]
+
+    def process_item(self, item, spider):
+        name = item.__class__.__name__
+        self.db[name].insert(dict(item))
+        return item
+
+    def close_spider(self, spider):
+        self.client.close()
+</code></pre></li>
+<li><p>设置settings.py文件</p>
+<pre><code>ITEM_PIPELINES = {
+&apos;tutorial.pipelines.TextPipeline&apos;: 300,
+&apos;tutorial.pipelines.MongoPipeline&apos;: 400,
 }
-</code></pre></li>
-<li><p>try catch 检测异常</p>
-<pre><code>try{
 
-}catch(err){
-
-}
-
-# 自定义抛出异常
-throw &quot;message&quot;
+MONGO_URL = &apos;localhost&apos;
+MONGO_DB = &apos;tutorial&apos;
 </code></pre></li>
-<li><p>检测表单</p>
-<pre><code>function validateForm()
-{
-var x=document.forms[&quot;myForm&quot;][&quot;fname&quot;].value;
-if (x==null || x==&quot;&quot;)
-{
-alert(&quot;First name must be filled out&quot;);
-return false;
-}
-}
-
-#使用
-&lt;form name=&quot;myForm&quot; action=&quot;demo_form.asp&quot; onsubmit=&quot;return validateForm()&quot; method=&quot;post&quot;&gt;
-First name: &lt;input type=&quot;text&quot; name=&quot;fname&quot;&gt;
-&lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;
-&lt;/form&gt;
-</code></pre></li>
-<li><p>事件</p>
-<pre><code>onclick
-onload      #加载
-onunload    #离开
-onchange    #完成输入（离开输入框并外面点击）
-onmouseover
-onmouseout
-onmousedown
-onmouseup
-</code></pre></li>
-<li><p>创建，删除 元素</p>
-<pre><code>var element=document.getElementById(&quot;div1&quot;);
-var para=document.createElement(&quot;p&quot;);
-var node=document.createTextNode(&quot;This is new.&quot;);
-element.appendChild(node);
-
-var parent=document.getElementById(&quot;div1&quot;);
-var child=document.getElementById(&quot;p1&quot;);
-parent.removeChild(child);
-</code></pre></li>
-<li><p>对象的构造器</p>
-<pre><code>function person(firstname,lastname)
-{
-this.firstname=firstname;
-this.lastname=lastname;
-}
-#使用构造器创建对象
-var person1=new person(&quot;John&quot;,&quot;Doe&quot;);
-
-#如果不使用构造器创建对象可以直接这样
-var person1 = {firstname:&quot;John&quot;, lastname:&quot;Doe&quot;}
-
-#把方法添加到对象
-function person(firstname,lastname)
-{
-this.firstname=firstname;
-this.lastname=lastname;
-this.changeName=changeName;   #声明是该类的方法  下面是方法的声明
-function changeName(name)
-{
-this.lastname=name;
-}
-}
-</code></pre></li>
-<li><p>Number对象</p>
-<pre><code>isNaN(x)  # 判断 x是否是数字
-</code></pre></li>
-<li><p>window对象</p>
-<pre><code>#所有 JavaScript 全局对象、函数以及变量均自动成为 window 对象的成员
-windwo.document.getElementById(&apos;header&apos;)
+<li><p>启动服务</p>
+<pre><code>scrapy crawl quotes
 </code></pre></li>
 </ol>
 
@@ -508,7 +443,7 @@ windwo.document.getElementById(&apos;header&apos;)
       
         <div class="post-tags">
           
-            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
           
         </div>
       
@@ -521,8 +456,8 @@ windwo.document.getElementById(&apos;header&apos;)
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/14/模拟登陆教务管理系统/" rel="next" title="模拟登陆教务管理系统">
-                <i class="fa fa-chevron-left"></i> 模拟登陆教务管理系统
+              <a href="/2018/07/15/使用js文件进行加密/" rel="next" title="使用js文件进行加密">
+                <i class="fa fa-chevron-left"></i> 使用js文件进行加密
               </a>
             
           </div>
@@ -531,8 +466,8 @@ windwo.document.getElementById(&apos;header&apos;)
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/15/使用js文件进行加密/" rel="prev" title="使用js文件进行加密">
-                使用js文件进行加密 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/07/20/scrapy的选择器/" rel="prev" title="scrapy的选择器">
+                scrapy的选择器 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -656,7 +591,7 @@ windwo.document.getElementById(&apos;header&apos;)
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实践操作"><span class="nav-number">2.</span> <span class="nav-text">实践操作</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验环境"><span class="nav-number">2.</span> <span class="nav-text">实验环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实践步骤"><span class="nav-number">3.</span> <span class="nav-text">实践步骤</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实践操作"><span class="nav-number">4.</span> <span class="nav-text">实践操作</span></a></li></ol></div>
             
 
           </div>

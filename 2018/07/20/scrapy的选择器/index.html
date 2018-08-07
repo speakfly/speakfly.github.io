@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="爬虫," />
 
 
 
@@ -79,14 +79,18 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content="目的了解scrapy的选择器  xpath css  正则表达式 实践操作xpath 进入Scrapy shell scrapy shell http://doc.scrapy.org/en/latest/_static/selectos-sample1.html # 返回的变量是 response  查找节点 result = response.selector.xpath(&amp;apos;//a&amp;">
+<meta name="keywords" content="爬虫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="scrapy的选择器">
+<meta property="og:url" content="http://yoursite.com/2018/07/20/scrapy的选择器/index.html">
 <meta property="og:site_name" content="Blog">
+<meta property="og:description" content="目的了解scrapy的选择器  xpath css  正则表达式 实践操作xpath 进入Scrapy shell scrapy shell http://doc.scrapy.org/en/latest/_static/selectos-sample1.html # 返回的变量是 response  查找节点 result = response.selector.xpath(&amp;apos;//a&amp;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-12T06:29:51.010Z">
+<meta property="og:updated_time" content="2018-07-20T07:12:50.698Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="scrapy的选择器">
+<meta name="twitter:description" content="目的了解scrapy的选择器  xpath css  正则表达式 实践操作xpath 进入Scrapy shell scrapy shell http://doc.scrapy.org/en/latest/_static/selectos-sample1.html # 返回的变量是 response  查找节点 result = response.selector.xpath(&amp;apos;//a&amp;">
 
 
 
@@ -116,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/20/scrapy的选择器/"/>
 
 
 
 
 
-  <title>tags | Blog</title>
+  <title>scrapy的选择器 | Blog</title>
   
 
 
@@ -237,40 +241,192 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/20/scrapy的选择器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">tags</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                目前共计 7 个标签
-            </div>
-            <div class="tag-cloud-tags">
-              <a href="/tags/Github/" style="font-size: 21px; color: #6f6f6f">Github</a> <a href="/tags/JavaScript/" style="font-size: 12px; color: #ccc">JavaScript</a> <a href="/tags/blog/" style="font-size: 21px; color: #6f6f6f">blog</a> <a href="/tags/linux/" style="font-size: 12px; color: #ccc">linux</a> <a href="/tags/python/" style="font-size: 12px; color: #ccc">python</a> <a href="/tags/爬虫/" style="font-size: 30px; color: #111">爬虫</a>
-            </div>
-          </div>
+          <h1 class="post-title" itemprop="name headline">scrapy的选择器</h1>
         
-      </div>
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-20T12:25:00+08:00">
+                2018-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>了解scrapy的选择器  xpath css  正则表达式</p>
+<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><h2 id="xpath"><a href="#xpath" class="headerlink" title="xpath"></a>xpath</h2><ol>
+<li><p>进入Scrapy shell</p>
+<pre><code>scrapy shell http://doc.scrapy.org/en/latest/_static/selectos-sample1.html
+# 返回的变量是 response
+</code></pre></li>
+<li><p>查找节点</p>
+<pre><code>result = response.selector.xpath(&apos;//a&apos;)
+# 返回的是一个SelectorList类
+
+# 查找当前节点下的其他节点
+
+result.xpath(&apos;./img&apos;)
+
+# 根据属性值查找
+result.xpath(&apos;//a[@href=&quot;image1.html&quot;]/text()&apos;)
+</code></pre></li>
+<li><p>提取节点</p>
+<pre><code># 因为result.xpath()方法返回的是一个selectorList类
+result.extract()
+result.extract()[0]
+# 有时候extrac方法返回的是一个空值为了防止有数组越界的情况
+result.extract_first()
+</code></pre></li>
+<li><p>根据属性获取信息</p>
+<pre><code>#  获取文本
+result.xpath(&apos;//a/text()&apos;)
+# 获取属性
+result.xpath(&apos;//a/@href&apos;)
+</code></pre></li>
+</ol>
+<h2 id="css"><a href="#css" class="headerlink" title="css"></a>css</h2><ol>
+<li><p>获取节点</p>
+<pre><code>response.css(&apos;a&apos;)  # 直接查找
+response.css(&apos;a[href=&quot;image1.html&quot;]&apos;) # 根据属性值查找
+response.css(&apos;a[href=&quot;image1.html&quot;] img&apos;)  # 嵌套查找
+</code></pre></li>
+<li><p>获取属性值</p>
+<pre><code>response.css(&apos;a[href=&quot;image1.html&quot;]::text&apos;)
+response.css(&apos;a[href=&quot;image1.html img&quot;]::attr(src)&apos;)
+</code></pre></li>
+<li><p>正则表达式</p>
+<h1 id="response对象不能直接调用re-和re-first-方法-如果要进行全文匹配的话-reponse-xpath-‘-’-re-‘xxx’"><a href="#response对象不能直接调用re-和re-first-方法-如果要进行全文匹配的话-reponse-xpath-‘-’-re-‘xxx’" class="headerlink" title="response对象不能直接调用re()和re_first()方法  如果要进行全文匹配的话 reponse.xpath(‘.’).re(‘xxx’)"></a>response对象不能直接调用re()和re_first()方法  如果要进行全文匹配的话 reponse.xpath(‘.’).re(‘xxx’)</h1><p>   <code>response.xpath(&#39;//a/text()&#39;).re(&#39;Name:\s(.*)&#39;)</code></p>
+</li>
+</ol>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/16/scrapy入门/" rel="next" title="scrapy入门">
+                <i class="fa fa-chevron-left"></i> scrapy入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/07/crontab/" rel="prev" title="crontab">
+                crontab <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -303,8 +459,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -355,6 +520,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实践操作"><span class="nav-number">2.</span> <span class="nav-text">实践操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#xpath"><span class="nav-number">2.1.</span> <span class="nav-text">xpath</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#css"><span class="nav-number">2.2.</span> <span class="nav-text">css</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#response对象不能直接调用re-和re-first-方法-如果要进行全文匹配的话-reponse-xpath-‘-’-re-‘xxx’"><span class="nav-number">3.</span> <span class="nav-text">response对象不能直接调用re()和re_first()方法  如果要进行全文匹配的话 reponse.xpath(‘.’).re(‘xxx’)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

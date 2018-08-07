@@ -249,6 +249,770 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/07/python发送邮件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/07/python发送邮件/" itemprop="url">python发送邮件</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T21:28:12+08:00">
+                2018-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>使用python自动发送邮件</p>
+<h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><ol>
+<li><p>设置配置文件</p>
+<pre><code>from_addr = &apos;1090384046@qq.com&apos;
+to_addr = &apos;1090384046@qq.com&apos;
+smtp_server = &apos;smtp.qq.com&apos;
+smtp_port = 465
+password = &quot;xxxxxxxxxxxxxxx&quot;
+</code></pre></li>
+<li><p>规范地址</p>
+<pre><code>def addrFormat(s):
+  &quot;&quot;&quot;格式化 发送接收的地址&quot;&quot;&quot;
+  name, addr = parseaddr(s)
+  return formataddr((Header(name, &apos;utf-8&apos;).encode(), addr))
+</code></pre></li>
+<li><p>构造信息</p>
+<pre><code># message 可以是字符串 或者 html字符串
+# mode: &apos;plain&apos; 正常文本 &apos;html&apos;网页格式
+msg = MIMEMultipart(&apos;alternative&apos;)
+msg[&apos;From&apos;] = addrFormat(&apos;ming &lt;%s&gt;&apos; % from_addr)
+msg[&apos;To&apos;] = addrFormat(&apos;用户 &lt;%s&gt;&apos; % to_addr)
+msg[&apos;Subject&apos;] = Header(&apos;提醒信息&apos;, &apos;utf-8&apos;).encode()
+msg.attach(MIMEText(message, mode, &apos;utf-8&apos;))
+</code></pre></li>
+<li><p>发送</p>
+<pre><code>server = smtplib.SMTP_SSL(smtp_server, smtp_port)
+# server = smtplib.SMTP(smtp_server, smtp_port)    #如果不是使用QQ服务器发送的话取消注解
+# server.starttls()                                #如果不是使用QQ服务器发送的话取消注解
+server.login(from_addr, password)
+server.sendmail(from_addr, [to_addr], msg.as_string())
+server.quit()
+</code></pre></li>
+<li><p>导入的数据包</p>
+<pre><code>from email import encoders
+from email.header import Header
+from email.mime.text import MIMEText
+from email.utils import parseaddr, formataddr
+from email.mime.multipart import MIMEMultipart
+import smtplib
+</code></pre></li>
+<li><p>完整代码(需修改配置文件，发送内容) Ctrl F “配置文件”</p>
+<pre><code>from email import encoders
+from email.header import Header
+from email.mime.text import MIMEText
+from email.utils import parseaddr, formataddr
+from email.mime.multipart import MIMEMultipart
+import smtplib
+
+# 配置文件
+from_addr = &quot;1090384046@qq.com&quot;
+password = &quot;xxxxxxxxxxx&quot;
+smtp_server = &apos;smtp.qq.com&apos;
+smtp_port = 465
+
+def addrFormat(s):
+    &quot;&quot;&quot;格式化 发送接收的地址&quot;&quot;&quot;
+    name, addr = parseaddr(s)
+    return formataddr((Header(name, &apos;utf-8&apos;).encode(), addr))
+
+def send_mail(to_addr, message, mode):
+
+    msg = MIMEMultipart(&apos;alternative&apos;)
+    # msg = MIMEText(message, mode, &apos;utf-8&apos;)
+    msg[&apos;From&apos;] = addrFormat(&apos;ming &lt;%s&gt;&apos; % from_addr)
+    msg[&apos;To&apos;] = addrFormat(&apos;用户 &lt;%s&gt;&apos; % to_addr)
+    msg[&apos;Subject&apos;] = Header(&apos;提醒信息&apos;, &apos;utf-8&apos;).encode()
+    msg.attach(MIMEText(message, mode, &apos;utf-8&apos;))
+
+    server = smtplib.SMTP_SSL(smtp_server, smtp_port)
+    # server.starttls()
+    server.login(from_addr, password)
+    server.sendmail(from_addr, [to_addr], msg.as_string())
+    server.quit()
+
+# 发送内容
+mode = &quot;html&quot;
+message = &apos;&apos;&lt;a href=&quot;www.baidu.com&quot;&gt;百度&lt;/a&gt;&apos;
+to_addr = &apos;1090384046@qq.com&apos;
+send_mail(to_addr, message, mode)
+</code></pre></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/07/crontab/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/07/crontab/" itemprop="url">crontab</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T16:54:12+08:00">
+                2018-08-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>学会使用Linux的定时运行脚本</p>
+<h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><ol>
+<li><a href="https://www.shiyanlou.com/courses/1/labs/1918/document" target="_blank" rel="noopener">实验楼linux</a></li>
+</ol>
+<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
+<li><p>安装crontab  #一般默认已经安装了</p>
+<pre><code>yum install crontabs
+</code></pre></li>
+<li><p>编写或修改 crontab</p>
+<pre><code>crontab -e
+</code></pre></li>
+<li><p>查看crontab</p>
+<pre><code>crontab -l
+</code></pre></li>
+<li><p>删除crontab</p>
+<pre><code>crontab -r
+</code></pre></li>
+<li><p>编写crontab 的 语法</p>
+<ol>
+<li><ul>
+<li><ul>
+<li><ul>
+<li><ul>
+<li><ul>
+<li><ul>
+<li>test.sh   // 分，时，天，月，星期 执行语句</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>*/num  设置频率</code></li>
+<li>num1-num2  或者  num1,num2,num3 表示范围</li>
+</ol>
+</li>
+<li><p>查看日志  可以看得出该语句有没有被执行<br> <code>cat /var/log/cron</code></p>
+<h1 id="可以看出有一个错误-mail的错误-原因是IPV6"><a href="#可以看出有一个错误-mail的错误-原因是IPV6" class="headerlink" title="可以看出有一个错误 mail的错误 原因是IPV6"></a>可以看出有一个错误 mail的错误 原因是IPV6</h1><h1 id="可以通过vim-ets-hosts-注解-1"><a href="#可以通过vim-ets-hosts-注解-1" class="headerlink" title="可以通过vim /ets/hosts 注解 #::1"></a>可以通过vim /ets/hosts 注解 #::1</h1></li>
+<li><p>查看出错反馈<br> <code>cat /var/spool/mail/root</code></p>
+</li>
+<li><p>运行python脚本 需要执行python路径 比如<br> <code>/root/anaconda3/bin/python /root/ming/findPractice/getMysql.py</code></p>
+</li>
+<li><p>错误检测</p>
+<ol>
+<li>服务是否启动</li>
+<li>脚本的路径和运行环境 是否写明</li>
+<li>脚本 有没有 chmod u+x file </li>
+</ol>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/20/scrapy的选择器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/20/scrapy的选择器/" itemprop="url">scrapy的选择器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-20T12:25:00+08:00">
+                2018-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>了解scrapy的选择器  xpath css  正则表达式</p>
+<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><h2 id="xpath"><a href="#xpath" class="headerlink" title="xpath"></a>xpath</h2><ol>
+<li><p>进入Scrapy shell</p>
+<pre><code>scrapy shell http://doc.scrapy.org/en/latest/_static/selectos-sample1.html
+# 返回的变量是 response
+</code></pre></li>
+<li><p>查找节点</p>
+<pre><code>result = response.selector.xpath(&apos;//a&apos;)
+# 返回的是一个SelectorList类
+
+# 查找当前节点下的其他节点
+
+result.xpath(&apos;./img&apos;)
+
+# 根据属性值查找
+result.xpath(&apos;//a[@href=&quot;image1.html&quot;]/text()&apos;)
+</code></pre></li>
+<li><p>提取节点</p>
+<pre><code># 因为result.xpath()方法返回的是一个selectorList类
+result.extract()
+result.extract()[0]
+# 有时候extrac方法返回的是一个空值为了防止有数组越界的情况
+result.extract_first()
+</code></pre></li>
+<li><p>根据属性获取信息</p>
+<pre><code>#  获取文本
+result.xpath(&apos;//a/text()&apos;)
+# 获取属性
+result.xpath(&apos;//a/@href&apos;)
+</code></pre></li>
+</ol>
+<h2 id="css"><a href="#css" class="headerlink" title="css"></a>css</h2><ol>
+<li><p>获取节点</p>
+<pre><code>response.css(&apos;a&apos;)  # 直接查找
+response.css(&apos;a[href=&quot;image1.html&quot;]&apos;) # 根据属性值查找
+response.css(&apos;a[href=&quot;image1.html&quot;] img&apos;)  # 嵌套查找
+</code></pre></li>
+<li><p>获取属性值</p>
+<pre><code>response.css(&apos;a[href=&quot;image1.html&quot;]::text&apos;)
+response.css(&apos;a[href=&quot;image1.html img&quot;]::attr(src)&apos;)
+</code></pre></li>
+<li><p>正则表达式</p>
+<h1 id="response对象不能直接调用re-和re-first-方法-如果要进行全文匹配的话-reponse-xpath-‘-’-re-‘xxx’"><a href="#response对象不能直接调用re-和re-first-方法-如果要进行全文匹配的话-reponse-xpath-‘-’-re-‘xxx’" class="headerlink" title="response对象不能直接调用re()和re_first()方法  如果要进行全文匹配的话 reponse.xpath(‘.’).re(‘xxx’)"></a>response对象不能直接调用re()和re_first()方法  如果要进行全文匹配的话 reponse.xpath(‘.’).re(‘xxx’)</h1><p>   <code>response.xpath(&#39;//a/text()&#39;).re(&#39;Name:\s(.*)&#39;)</code></p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/16/scrapy入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/16/scrapy入门/" itemprop="url">scrapy入门</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-16T23:41:12+08:00">
+                2018-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>了解scrapy</p>
+<h1 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h1><ol>
+<li>scrapy <code>pip install scrapyd</code></li>
+<li>如果在window 下安装 scrapy 提示需要安装 Microsoft Visual C++ 14.0,解决办法如下</li>
+<li>在<a href="https://www.lfd.uci.edu/~gohlke/pythonlibs/" target="_blank" rel="noopener">国外python库</a>搜索Twisted</li>
+<li>cp36代表python36版本，amd64代表64位  选择对应的Teisted.whl包 下载</li>
+<li>pip install 选择对应的Teisted.whl包</li>
+<li><code>pip install scrapyd</code></li>
+</ol>
+<h1 id="实践步骤"><a href="#实践步骤" class="headerlink" title="实践步骤"></a>实践步骤</h1><ol>
+<li>创建工程</li>
+<li>创建爬虫</li>
+<li>修改爬虫文件  添加 parse方法</li>
+<li>vim items.py 设置 item</li>
+<li>vim Pipeline 设置保存  保存到数据库的代码都是一样的</li>
+<li>vim settings.py  设置添加插件 并设置优先值 设置数据库的信息</li>
+<li>运行</li>
+</ol>
+<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
+<li><p>创建工程</p>
+<pre><code>scrapy startproject tutorial
+</code></pre></li>
+<li><p>创建Spider</p>
+<pre><code>cd tutorial
+scrapy genspider quotes quotes.toscrape.com
+</code></pre></li>
+<li><p>创建Item</p>
+<pre><code>#vim items.py
+import scrapy
+class QuoteItem(scrapy.Item):
+    text = scrapy.Field()
+    author = scrapy.Field()
+    tags = scrapy.Field()
+</code></pre></li>
+<li><p>解析Response</p>
+<pre><code># vim quotes.py
+from quotes.items import QuoteItem          # 注意还需要导入这个类
+def parse(self, response):
+        quotes = response.css(&apos;.quote&apos;)
+        for quote in quotes:
+            item = QuoteItem()
+            item[&apos;text&apos;] = quote.css(&apos;.text::text&apos;).extract_first()
+            item[&apos;author&apos;] = quote.css(&apos;.author::text&apos;).extract_first()
+            item[&apos;tags&apos;] = quote.css(&apos;.tags .tag::text&apos;).extract()
+            yield item     #返回的是scrapy.item子类
+
+        # scrapy.Request 是一个构造请求函数 下面的代码专用于有下一页的链接
+        next = response.css(&apos;.pager .next a::attr(&quot;href&quot;)&apos;).extract_first()
+        url = response.urljoin(next)
+        yield scrapy.Request(url=url, callback=self.parse)
+</code></pre></li>
+<li><p>使用Item Pipeline</p>
+<pre><code># vim spiders/pipelines.py
+class TextPipeline(object):
+
+    def __init__(self):
+        self.limit = 50
+
+    def process_item(self, item, spider):
+        if item[&apos;text&apos;]:
+            if len(item[&apos;text&apos;]) &gt; self.limit:
+                item[&apos;text&apos;] = item[&apos;text&apos;][0:self.limit].rstrip() + &apos;...&apos;
+                return item
+        else:
+            return DropItem(&apos;Missing Text&apos;)
+
+# 一下这段是一个通用代码  可以自己写在通用爬虫里面
+import pymongo
+
+class MongoPipeline(object):
+    def __init__(self, mongo_uri, mongo_db):
+        self.mongo_uri = mongo_uri
+        self.mongo_db = mongo_db
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            mongo_uri = crawler.settings.get(&apos;MONGO_URI&apos;),
+            mongo_db = crawler.settings.get(&apos;MONGO_DB&apos;)
+        )
+
+    def open_spider(self, spider):
+        self.client = pymongo.MongoClient(self.mongo_uri)
+        self.db = self.client[self.mongo_db]
+
+    def process_item(self, item, spider):
+        name = item.__class__.__name__
+        self.db[name].insert(dict(item))
+        return item
+
+    def close_spider(self, spider):
+        self.client.close()
+</code></pre></li>
+<li><p>设置settings.py文件</p>
+<pre><code>ITEM_PIPELINES = {
+&apos;tutorial.pipelines.TextPipeline&apos;: 300,
+&apos;tutorial.pipelines.MongoPipeline&apos;: 400,
+}
+
+MONGO_URL = &apos;localhost&apos;
+MONGO_DB = &apos;tutorial&apos;
+</code></pre></li>
+<li><p>启动服务</p>
+<pre><code>scrapy crawl quotes
+</code></pre></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/15/使用js文件进行加密/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1581,716 +2345,6 @@ if __name__ == &quot;__main__&quot;:
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/13/爬取今日头条街拍/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="speakfly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/13/爬取今日头条街拍/" itemprop="url">爬取今日头条街拍</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-13T11:28:12+08:00">
-                2018-07-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>进一步了解Ajax的爬取</p>
-<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
-<li><p>抓取分析</p>
-<pre><code>1. 分析链接
-
-    https://www.toutiao.com/search_content/?offset=0&amp;format=json&amp;keyword=街拍&amp;autoload=true&amp;count=20&amp;cur_tab=3&amp;from=gallery
-
-    https://www.toutiao.com/search_content/?offset=20&amp;format=json&amp;keyword=街拍&amp;autoload=true&amp;count=20&amp;cur_tab=3&amp;from=gallery
-
-    offset在变化
-
-2. 分析内容
-
-    url        : data 0 image_list 0 url
-    title      : data 0 image_list title
-</code></pre></li>
-<li><p>写代码</p>
-<pre><code>import requests
-
-def get_page(offset):
-
-    # https://www.toutiao.com/search_content/?offset=0&amp;format=json&amp;keyword=街拍&amp;autoload=true&amp;count=20&amp;cur_tab=3&amp;from=gallery
-    params = {
-        &apos;offest&apos;: offset,
-        &apos;format&apos;: &apos;json&apos;,
-        &apos;keyword&apos;: &apos;街拍&apos;,
-        &apos;autoload&apos;: &apos;true&apos;,
-        &apos;count&apos;: &apos;20&apos;,
-        &apos;cur_tab&apos;: &apos;3&apos;,
-        &apos;from&apos;: &apos;gallery&apos;
-    }
-    url = &apos;https://www.toutiao.com/search_content/&apos;
-
-    try:
-        response = requests.get(url, params=params)
-        if response.status_code == 200:
-            return response.json()
-    except requests.ConnectionError:
-        return None
-
-def get_images(json):
-      # url        : data 0 image_list 0 url
-      # title      : data 0 title
-    if json.get(&apos;data&apos;):
-        datas = json.get(&apos;data&apos;)
-        for item in datas:
-            title = item.get(&apos;title&apos;)
-            images = item.get(&apos;image_list&apos;)
-            for image in images:
-                yield{
-                    &apos;image&apos;: &apos;https:&apos; +  image.get(&apos;url&apos;),
-                    &apos;title&apos;: title
-                }
-
-import os
-from hashlib import md5
-
-def save_image(item):
-    if not os.path.exists(item.get(&apos;title&apos;)):
-        os.mkdir(item.get(&apos;title&apos;))
-
-    try:
-        response = requests.get(item.get(&apos;image&apos;))
-        if response.status_code == 200:
-            file_path = &apos;{0}/{1}.{2}&apos;.format(item.get(&apos;title&apos;), md5(response.content).hexdigest(), &apos;.jpg&apos;)
-            if not os.path.exists(file_path):
-                with open(file_path, &apos;wb&apos;) as f:
-                    f.write(response.content)
-
-            else:
-                print(&apos;Already Downloaded&apos;, file_path)
-    except requests.ConnectionError:
-        print(&apos;Failed to save Image&apos;)
-
-from multiprocessing.pool import Pool
-
-def main(offset):
-    json = get_page(offset)
-    items = get_images(json)
-    for item in items:
-        print(item)
-        save_image(item)
-
-GROUP_START = 1
-GROUP_END = 20
-
-if __name__ == &apos;__main__&apos;:
-    pool = Pool()
-    groups = ([x*20 for x in range(GROUP_START,  GROUP_END)])
-    pool.map(main, groups)
-    pool.close()
-    pool.join()
-</code></pre></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/12/解决github访问慢/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="speakfly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/12/解决github访问慢/" itemprop="url">解决GitHub访问慢</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T16:29:00+08:00">
-                2018-07-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>认识到GitHub访问比较慢 很影响效率</p>
-<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><blockquote>
-<p>hosts文件</p>
-</blockquote>
-<pre><code>当用户在浏览器中输入一个需要登录的网址时，系统会首先自动从Hosts文件中寻找对应的IP地址，
-一旦找到，系统会立即打开对应网页，如果没有找到，则系统会再将网址提交DNS域名解析服务器进行
-IP地址的解析。
-</code></pre><h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
-<li><p>查询<code>github.global.ssl.fastly.NET</code>对应的ip<a href="http://tool.chinaz.com/dns" target="_blank" rel="noopener">查询链接</a></p>
-</li>
-<li><p>修改hosts文件<code>C:\Windows\System32\drivers\etc\hosts</code></p>
-<pre><code>151.101.77.194 github.global.ssl.fastly.Net
-</code></pre></li>
-</ol>
-<h1 id="可能会遇到的问题"><a href="#可能会遇到的问题" class="headerlink" title="可能会遇到的问题"></a>可能会遇到的问题</h1><ol>
-<li><p>权限</p>
-<pre><code>点击host文件，右键属性，安全，点击Users, 编辑， 完全控制，应用
-</code></pre></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/12/blog_02/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="speakfly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/12/blog_02/" itemprop="url">Hexo + Github + next 搭建博客（进阶）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T16:01:12+08:00">
-                2018-07-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>把自己的blog变得好看，而且易于管理</p>
-<h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><ol>
-<li><a href="http://www.cnblogs.com/fengxiongZz/p/7707568.html" target="_blank" rel="noopener">Z皓博客</a></li>
-<li><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">next</a></li>
-</ol>
-<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><pre><code># 接着上一篇的操作 在blog目录下 右键点击Git Base Here
-git clone https://github.com/iissnan/hexo-theme-next themes/next      
-</code></pre><h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
-<li><p>配置blog目录下的_config.yml</p>
-<pre><code>theme: next        # 选择主题为next
-
-title: Blog        # 设置Blog主题
-subtitle:
-description:
-author: speakfly   # 设置作者名
-language: zh-Hans  # 设置为中文
-timezone:
-</code></pre></li>
-<li><p>配置blog/theme/next目录下的_config.yml</p>
-<pre><code>#设置显示菜单
-menu:
-home: / || home
-about: /about/ || user
-tags: /tags/ || tags
-#categories: /categories/ || th
-archives: /archives/ || archive
-</code></pre></li>
-<li><p>生成显示标签的页面</p>
-<pre><code>hexo new page tags # 会生成tags文件夹和index.html文件
-
-# 修改 blog/source/tags/index.html
-
----
-title: tags
-date: 2018-07-12 14:29:25
-type: &quot;tags&quot;
----
-</code></pre></li>
-<li><p>生成显示about的页面</p>
-<pre><code>hexo new page about
-
-# 修改 blog/source/about/index.html
-
----
-title: about
-date: 2018-07-12 14:31:33
----
-#关于我
-一个学习前端知识的小菜鸟
-
-email: 1090384046@qq.com
-</code></pre></li>
-<li><p>生成静态文件并部署到远程仓库</p>
-<pre><code>hexo g -d
-</code></pre></li>
-<li><p>在浏览器输入  https://用户名.github.io</p>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/12/blog_01/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="speakfly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/12/blog_01/" itemprop="url">Hexo + Github + next 搭建博客（基础）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T14:53:12+08:00">
-                2018-07-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>搭建自己的博客方便自己写笔记</p>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
-<li><a href="http://www.cnblogs.com/fengxiongZz/p/7707219.html" target="_blank" rel="noopener">Z皓博客</a></li>
-<li><a href="https://hexo.io/zh-cn/docs/commands.html" target="_blank" rel="noopener">hexo</a></li>
-</ol>
-<h1 id="实验环境-window"><a href="#实验环境-window" class="headerlink" title="实验环境(window)"></a>实验环境(window)</h1><ol>
-<li><a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js</a></li>
-<li><a href="https://git-scm.com/" target="_blank" rel="noopener">git</a></li>
-<li><a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="noopener">hexo</a> <code>npm install -g hexo-cli</code></li>
-<li><a href="https://atom.io/" target="_blank" rel="noopener">atom</a></li>
-<li><p>验证是否安装成功(在cmd里面执行)</p>
-<pre><code>node -v
-git --version
-hexo -v
-</code></pre></li>
-<li>注册GitHub账号，并创建仓库命名为：账号.github.io</li>
-</ol>
-<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
-<li><p>初体验</p>
-<pre><code>hexo init blog   #创建工程
-cd blog
-hexo g -d        #g生成静态文件  -d 是部署到远程代理(现在还没有设置远程代理)
-hexo s           #开启服务 可以使用浏览器登陆 http://locahost:4000
-</code></pre></li>
-<li><p>部署远程代理</p>
-<ol>
-<li><p>git的基本配置</p>
-<pre><code>git config --global user.name &quot;your_name&quot;  #your_name改成自己的名字比如&quot;ming&quot;, 下同
-git config --global user.email &quot;your_email&quot;
-
-cd ~/.ssh
-ssh-keygen -t rsa -C &quot;your_email&quot;     #生成公共密钥 默认路径：`C:\Users\Administrator\.ssh`
-eval &quot;$(ssh-agent -s)&quot;   #添加密钥到ssh-agent
-ssh-add ~/.ssh/id_rsa    #添加生成的SSH-KEY到ssh-agent
-
-#登录Github，点击头像下的settings，添加ssh
-#将.ssh文件夹下的id_rsa.pub 的所有内容复制上去
-</code></pre><ol start="2">
-<li><p>验证</p>
-<pre><code>ssh -T git@github.com
-</code></pre></li>
-<li><p>配置远程代理 Deployment(注意下面的代码中speakfly是我的github用户命需要替换成自己的)</p>
-<pre><code>deploy:
-type: git
-repository: git@github.com:speakfly/speakfly.github.io.git
-branch: master
-</code></pre></li>
-<li><p>安装自动上传文件的插件</p>
-<pre><code>npm install hexo-deployer-git --save
-</code></pre></li>
-<li><p>新建一篇博客(生成的文件在 <code>_post</code>目录下)用atom软件进行编辑,需学习<a href="http://www.markdown.cn/" target="_blank" rel="noopener">markdown语法</a></p>
-<pre><code>hexo new post &quot;blog_name&quot;
-</code></pre></li>
-<li><p>生成静态文件和部署网站到远程代理</p>
-<pre><code>hexo d -g
-</code></pre></li>
-<li><p>在浏览器输入  https://用户名.github.io</p>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2341,7 +2395,7 @@ branch: master
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2354,7 +2408,7 @@ branch: master
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
