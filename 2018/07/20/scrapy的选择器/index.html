@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="Blog">
 <meta property="og:description" content="目的了解scrapy的选择器  xpath css  正则表达式 实践操作xpath 进入Scrapy shell scrapy shell http://doc.scrapy.org/en/latest/_static/selectos-sample1.html # 返回的变量是 response  查找节点 result = response.selector.xpath(&amp;apos;//a&amp;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-20T07:12:50.698Z">
+<meta property="og:updated_time" content="2018-08-22T11:28:33.552Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="scrapy的选择器">
 <meta name="twitter:description" content="目的了解scrapy的选择器  xpath css  正则表达式 实践操作xpath 进入Scrapy shell scrapy shell http://doc.scrapy.org/en/latest/_static/selectos-sample1.html # 返回的变量是 response  查找节点 result = response.selector.xpath(&amp;apos;//a&amp;">
@@ -362,8 +362,9 @@ response.css(&apos;a[href=&quot;image1.html&quot;] img&apos;)  # 嵌套查找
 response.css(&apos;a[href=&quot;image1.html img&quot;]::attr(src)&apos;)
 </code></pre></li>
 <li><p>正则表达式</p>
-<h1 id="response对象不能直接调用re-和re-first-方法-如果要进行全文匹配的话-reponse-xpath-‘-’-re-‘xxx’"><a href="#response对象不能直接调用re-和re-first-方法-如果要进行全文匹配的话-reponse-xpath-‘-’-re-‘xxx’" class="headerlink" title="response对象不能直接调用re()和re_first()方法  如果要进行全文匹配的话 reponse.xpath(‘.’).re(‘xxx’)"></a>response对象不能直接调用re()和re_first()方法  如果要进行全文匹配的话 reponse.xpath(‘.’).re(‘xxx’)</h1><p>   <code>response.xpath(&#39;//a/text()&#39;).re(&#39;Name:\s(.*)&#39;)</code></p>
-</li>
+<pre><code># response对象不能直接调用re()和re_first()方法  如果要进行全文匹配的话 reponse.xpath(&apos;.&apos;).re(&apos;xxx&apos;)
+response.xpath(&apos;//a/text()&apos;).re(&apos;Name:\s(.*)&apos;)
+</code></pre></li>
 </ol>
 
       
@@ -484,7 +485,7 @@ response.css(&apos;a[href=&quot;image1.html img&quot;]::attr(src)&apos;)
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -530,7 +531,7 @@ response.css(&apos;a[href=&quot;image1.html img&quot;]::attr(src)&apos;)
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实践操作"><span class="nav-number">2.</span> <span class="nav-text">实践操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#xpath"><span class="nav-number">2.1.</span> <span class="nav-text">xpath</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#css"><span class="nav-number">2.2.</span> <span class="nav-text">css</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#response对象不能直接调用re-和re-first-方法-如果要进行全文匹配的话-reponse-xpath-‘-’-re-‘xxx’"><span class="nav-number">3.</span> <span class="nav-text">response对象不能直接调用re()和re_first()方法  如果要进行全文匹配的话 reponse.xpath(‘.’).re(‘xxx’)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实践操作"><span class="nav-number">2.</span> <span class="nav-text">实践操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#xpath"><span class="nav-number">2.1.</span> <span class="nav-text">xpath</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#css"><span class="nav-number">2.2.</span> <span class="nav-text">css</span></a></li></ol></li></ol></div>
             
 
           </div>
