@@ -249,6 +249,705 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/03/linux网络/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/03/linux网络/" itemprop="url">linux网络</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-03T08:06:00+08:00">
+                2018-09-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="linux的计算机网络"><a href="#linux的计算机网络" class="headerlink" title="linux的计算机网络"></a>linux的计算机网络</h1><h1 id="要解决计算机联网问题"><a href="#要解决计算机联网问题" class="headerlink" title="要解决计算机联网问题"></a>要解决计算机联网问题</h1><ol>
+<li>设置ip  ip, 掩码，网关</li>
+<li>设置dns</li>
+</ol>
+<h1 id="知识问题"><a href="#知识问题" class="headerlink" title="知识问题"></a>知识问题</h1><h2 id="ip"><a href="#ip" class="headerlink" title="ip"></a>ip</h2><ol>
+<li><p>什么是ip<br>IP地址是IP协议提供的一种统一的地址格式，它为互联网上的每一个网络和每一台主机分配一个逻辑地址，以此来屏蔽物理地址的差异。</p>
+</li>
+<li><p>如何获取ip<br>自己设置， 就看路由器认不认可你的ip</p>
+</li>
+</ol>
+<h2 id="网关"><a href="#网关" class="headerlink" title="网关"></a>网关</h2><ol>
+<li><p>什么是网关<br>网关(Gateway)又称网间连接器、协议转换器。网关在网络层以上实现网络互连，是最复杂的网络互连设备，<br>仅用于两个高层协议不同的网络互连。网关既可以用于广域网互连，也可以用于局域网互连。</p>
+</li>
+<li><p>如何获取网关<br>一般是分配给你ip网段的第一个 比如你的ip是 192.168.0.103 那么网关很有可能就是192.168.0.1</p>
+</li>
+<li><p>查看网关</p>
+<ol>
+<li>route -n</li>
+<li>netstat -rn</li>
+</ol>
+</li>
+</ol>
+<h1 id="dhcp"><a href="#dhcp" class="headerlink" title="dhcp"></a>dhcp</h1><ol>
+<li><p>什么是dhcp<br>主要作用是集中的管理、分配IP地址，使网络环境中的主机动态的获得IP地址、Gateway地址、DNS服务器地址等信息，并能够提升地址的使用率。</p>
+</li>
+<li><p>如何设置dhcp?</p>
+</li>
+</ol>
+<h1 id="路由器"><a href="#路由器" class="headerlink" title="路由器"></a>路由器</h1><ol>
+<li>什么是路由器<br>路由器（Router）又称网关设备（Gateway）是用于连接多个逻辑上分开的网络，所谓逻辑网络是代表一个单独的网络或者一个子网。</li>
+</ol>
+<h1 id="dns"><a href="#dns" class="headerlink" title="dns"></a>dns</h1><ol>
+<li>什么是dns<br>DNS（Domain Name System，域名系统），万维网上作为域名和IP地址相互映射的一个分布式数据库，能够使用户更方便的访问互联网，而不用去记住能够被机器直接读取的IP数串。</li>
+</ol>
+<h1 id="接下来就是操作了"><a href="#接下来就是操作了" class="headerlink" title="接下来就是操作了"></a>接下来就是操作了</h1><ol>
+<li><p>redhat 修改ip</p>
+<pre><code>vim /etc/sysconfig/network-script/ifcfg-eno3333
+# 修改好了就重启网卡
+</code></pre></li>
+<li><p>修改dns</p>
+<ol>
+<li>vim /etc/hosts          IP 主机名</li>
+<li>vim /etc/sysconfig/network-script/ifcfg-eno3333  GATEWAY=IP</li>
+<li>vim /etc/resolv.conf    nameserver IP</li>
+</ol>
+</li>
+</ol>
+<h1 id="问题解决了"><a href="#问题解决了" class="headerlink" title="问题解决了"></a>问题解决了</h1><p>我也不知道是什么原因</p>
+<ol>
+<li>修改了ip， 但是能ping通其他网段的ip</li>
+<li>网关就是修改不了</li>
+</ol>
+<p>解决方案是 删除网卡 重新转一个网卡<br>rm /etc/udev/rules.d/70-persistent-net.rules</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/27/做小项目的心得/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/27/做小项目的心得/" itemprop="url">做小项目的信息</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T20:16:30+08:00">
+                2018-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li>面向对象开发， 写程序就不要写方法了，直接使用类， 因为类中有self，可以很方便的调用变量</li>
+<li>使用库的时候， 建议查看最新的文档</li>
+<li>敲代码之前， 需要写明需求，实现过程</li>
+<li>有时候遇到困难， 靠自己的力量是很难解决的， 但多方协调就可以轻松解决</li>
+</ol>
+<h1 id="还没解决的问题"><a href="#还没解决的问题" class="headerlink" title="还没解决的问题"></a>还没解决的问题</h1><ol>
+<li>代码文件管理比较乱</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/27/数据存储/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/27/数据存储/" itemprop="url">数据存储</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T20:16:30+08:00">
+                2018-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>  当业务大的时候，数据量就会很大，所以需要数据存储，和查询</p>
+<h1 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h1><ol>
+<li>《python3 网络爬虫开发实战》崔庆才著</li>
+</ol>
+<h1 id="数据储存的方式"><a href="#数据储存的方式" class="headerlink" title="数据储存的方式"></a>数据储存的方式</h1><ol>
+<li>txt</li>
+<li>json</li>
+<li>csv</li>
+<li>关系型数据库： Mysql</li>
+<li>非关系型数据库： Mongodb</li>
+</ol>
+<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
+<li><p>txt</p>
+<pre><code># 写
+data = &apos;我是谁&apos;
+with open(&apos;test.txt&apos;, &apos;w&apos;, encoding=&quot;utf-8&quot;) as fp:
+    fp.write(data)
+# 多行写
+datalist = [
+    &apos;我是谁&apos;,
+    &apos;我要上学校&apos;,
+    &apos;天天不迟到&apos;,
+    &apos;哈哈&apos;,
+]
+with open(&apos;test.txt&apos;, &apos;w&apos;, encoding=&quot;utf-8&quot;) as fp:
+    for data in datalist:
+        dataline = data + &apos;\n&apos;
+        fp.write(dataline)
+
+# 读
+with open(&apos;test.txt&apos;, encoding=&quot;utf-8&quot;) as fp:
+      data = fp.read()
+
+# 多行读
+with open(&apos;test.txt&apos;, encoding=&quot;utf-8&quot;) as fp:
+      for line in fp.readlines():
+          print(line.strip())
+</code></pre></li>
+<li><p>json</p>
+<pre><code># 写
+data_json = [
+  {
+      &apos;user&apos; : &apos;ming&apos;,
+      &apos;password&apos; : &apos;ming;;;;&apos;
+  },
+  {
+      &apos;user&apos; : &apos;tao&apos;,
+      &apos;password&apos; : &apos;1234&apos;
+  }
+  ]
+with open(&apos;test.json&apos;, &apos;w&apos;) as fp:
+      data_str = json.dumps(data_json, indent=2)   # 将json数据转化成字符串
+      fp.write(data_str)
+
+# 读
+def jsonread():
+    with open(&apos;test.json&apos;) as fp:
+        data_str = fp.read()
+        data_json = json.loads(data_str)
+    print(data_json)
+</code></pre></li>
+<li><p>csv</p>
+<pre><code>import csv
+with open(&apos;test.csv&apos;, &apos;w&apos;) as fp:
+    writer = csv.writer(fp)             # csv 需要使用自己的write方法
+    writer.writerow([&apos;id&apos;, &apos;name&apos;, &apos;age&apos;])
+    writer.writerow([&apos;1001&apos;, &apos;Mike&apos;, &apos;20&apos;])
+    writer.writerow([&apos;1002&apos;, &apos;Bob&apos;, &apos;22&apos;])
+    writer.writerow([&apos;1003&apos;, &apos;Jordan&apos;, &apos;21&apos;])
+
+# 字典方式写
+with open(&apos;test.csv&apos;, &apos;w&apos;) as fp:
+    fieldnames = [&apos;id&apos;, &apos;name&apos;, &apos;age&apos;]
+    writer = csv.DictWriter(fp, fieldnames=fieldnames)
+    writer.writeheader()
+    writer.writerow({&apos;id&apos;:&apos;1001&apos;, &apos;name&apos;: &apos;Mike&apos;, &apos;age&apos;: 20})
+    writer.writerow({&apos;id&apos;:&apos;1002&apos;, &apos;name&apos;: &apos;Bob&apos;, &apos;age&apos;: 22})
+    writer.writerow({&apos;id&apos;:&apos;1003&apos;, &apos;name&apos;: &apos;Jordan&apos;, &apos;age&apos;: 21})
+
+# 读
+with open(&apos;test.csv&apos;) as fp:
+    reader = csv.reader(fp)
+    for row in reader:
+        print(row)
+</code></pre></li>
+<li><p>mysql</p>
+<pre><code># 连接
+conn = pymysql.connect(host=&apos;localhost&apos;, user=&apos;root&apos;, password=&apos;root&apos;, port=3306)
+cursor = conn.cursor()
+
+# 执行
+sql = &apos;&apos;
+cursor.execute(sql) # 除了增删改还需要 db.commit() 才能执行，其他语句直接执行就好了
+
+# 关闭
+cursor.close()
+
+# 字典插入方式
+data = {
+      &apos;id&apos; : &apos;003&apos;,
+      &apos;name&apos; : &apos;BOb&apos;,
+      &apos;age&apos;: 22
+  }
+  table = &apos;testtable&apos;
+    keys = &apos;, &apos;.join(data.keys())
+    values = &apos;, &apos;.join([&apos;%s&apos;] * len(data))
+    sql = &apos;insert into {table} ({keys}) values ({values})&apos;.format(table=table, keys=keys, values=values)
+    try:
+        if cursor.execute(sql, tuple(data.values())):
+            print(&apos;Successful&apos;)
+            db.commit()
+    except:
+        print(&apos;Failed&apos;)
+        db.rollback()
+
+# 跟新操作
+sql = &apos;update testtable set age = %s where name = %s&apos;
+  try:
+      cursor.execute(sql, (25, &apos;Bob&apos;))
+      db.commit()
+  except:
+      db.rollback()
+
+# 删除操作
+table = &apos;testtable&apos;
+  condition = &apos;age &gt; 20&apos;
+  sql = &apos;delete from {table} where {condition}&apos;.format(table=table, condition=condition)
+  try:
+      cursor.execute(sql)
+      db.commit()
+  except:
+      db.rollback()
+
+# 查询操作
+sql = &apos;select  * from testtable Where age &gt;= 20&apos;
+try:
+    cursor.execute(sql)
+    print(&apos;Count:&apos;, cursor.rowcount)
+    row = cursor.fetchone()
+    while row:
+        print(row)
+        row = cursor.fetchone()
+except:
+    print(&apos;Error&apos;)
+</code></pre></li>
+<li><p>mongodb</p>
+<pre><code># 连接
+client = pymongo.MongoClient(&apos;mongodb://localhost:27017/&apos;)
+db = client.test
+collection = db.students
+
+# 插入
+# result = collection.insert_one(data1)
+  result = collection.insert_many([data1, data2])
+
+# 查询
+results = collection.find({&apos;age&apos;: 20})
+    for result in results:
+        print(result)
+</code></pre></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/27/自定义配置文件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/27/自定义配置文件/" itemprop="url">自定义配置文件</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T20:16:30+08:00">
+                2018-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/20/处理邮件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -268,7 +967,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/20/处理邮件/" itemprop="url">python emial 处理邮件</a></h1>
+                <a class="post-title-link" href="/2018/08/20/处理邮件/" itemprop="url">python emial</a></h1>
         
 
         <div class="post-meta">
@@ -416,7 +1115,7 @@ with open(&apos;xx.eml&apos;, &apos;rb&apos;) as fp:
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/20/处理excel/" itemprop="url">python excel 处理邮件</a></h1>
+                <a class="post-title-link" href="/2018/08/20/处理excel/" itemprop="url">python excel</a></h1>
         
 
         <div class="post-meta">
@@ -1321,894 +2020,11 @@ MONGO_DB = &apos;tutorial&apos;
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/15/使用js文件进行加密/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="speakfly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/15/使用js文件进行加密/" itemprop="url">使用js文件进行加密</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-15T11:52:00+08:00">
-                2018-07-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>优化 锐捷自动登陆程序</p>
-<p>因为 我们的password 是 经过javascript 程序加密过的 那怎么获取加密过的密码呢？</p>
-<p>第一种办法</p>
-<p>通过浏览器 先登陆一次 按F12 获取 参数(上次的实验就是这样获取)</p>
-<p>第二种办法</p>
-<p>获取js程序的代码 运行js代码 获取 加密后的密码</p>
-<p>这次实验就是 用第二种办法</p>
-<h1 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h1><ol>
-<li><a href="https://pypi.org/project/PyExecJS/" target="_blank" rel="noopener">PyExecJS</a> <code>pip install PyExecJS</code></li>
-</ol>
-<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
-<li><p>获取加密js文件</p>
-<ol>
-<li>打开 <a href="http://enet.10000.gd.cn:10001/zq/zq251/index.jsp?wlanacip=xxxxx&amp;wlanuserip=xxxxxx" target="_blank" rel="noopener">http://enet.10000.gd.cn:10001/zq/zq251/index.jsp?wlanacip=xxxxx&amp;wlanuserip=xxxxxx</a></li>
-<li>F12 网络 所有 查看 文件 搜索 password</li>
-<li>在一个index.js文件里面发现 <code>password.value = BASE64.encoder(password.value);</code></li>
-<li>在base64.js 文件发现encoder函数</li>
-</ol>
-</li>
-<li><p>分析 js文件</p>
-<ol>
-<li><code>(function(){主要代码 window.BASE64 = __BASE64; })()</code></li>
-<li>加密程序 在匿名函数的主要代码里面,那么怎么去引用里面的代码呢？</li>
-<li>查找资料发现 window.BASE64 是声明全局变量的， 通过 BASE64就能引用里面的内容了</li>
-<li>但是 python执行的js文件程序 识别不了 window, 那么我就把主要代码给提出来保存到base64.txt文件</li>
-</ol>
-</li>
-<li><p>python执行js文件里面的函数</p>
-<pre><code>import execjs
-password = &apos;12345678&apos;
-password1 = execjs.compile(open(&apos;base64.txt&apos;, encoding=&apos;UTF-8&apos;).read()).call(&apos;BASE64.encoder&apos;, password)
-print(password1)      #返回的结果和在浏览器提取的password1参数一样
-</code></pre></li>
-<li><p>熟悉一下加密和解密</p>
-<pre><code>encoder函数 输入 字符串 返回 字符串
-decoder函数 输入 字符串 返回 ascii码 的 列表
-
-a = 48      #ascii码
-a = chr(a)  #ascii码转字符
-</code></pre></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/15/JavaScript基础/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="speakfly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/15/JavaScript基础/" itemprop="url">JavaScript基础</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-15T08:06:00+08:00">
-                2018-07-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>了解js</p>
-<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
-<li><script> 标签
-
-     <script>
-     alert("Hello World");
-     </script>
-
-<pre><code>&lt;script&gt;
-document.write(&quot;&lt;h1&gt;这是一个标题&lt;/h1&gt;&quot;)
-document.write(&quot;&lt;p&gt;这是一个段落&lt;/p&gt;&quot;)
-&lt;/script&gt;
-</code></pre></li>
-<li><p>script代码一般放在页面底部</p>
-<pre><code>#监测触发时间并调用函数
-&lt;script&gt;
-function myFunction()
-{
-  alert(&apos;Hello World&apos;);
-}
-&lt;/script&gt;
-
-&lt;button type=&quot;button&quot;, onclick=&quot;myFunction()&quot;&gt;hello&lt;/button&gt;
-</code></pre></li>
-<li><p>引用外部js</p>
-<pre><code>&lt;script src=&quot;myScript.js&quot;&gt;&lt;/script&gt;
-</code></pre></li>
-<li><p>操作HTML元素</p>
-<pre><code>document.write(Data())
-document.getElementById(&quot;demo&quot;).innerHTML=&quot;Hello World&quot;;
-document.getElementById(id).attribute=new value   
-document.getElementById(&quot;p2&quot;).style.color= &quot;blue&quot;;
-</code></pre></li>
-<li><p>写到文档输出</p>
-<pre><code>#会覆盖已经显示的html语言
-document.write(&quot;&lt;p&gt;Hello World&lt;/p&gt;&quot;);
-</code></pre></li>
-<li><p>注释</p>
-<pre><code>单行注释 `/  /`
-多行注释 `/* */`
-</code></pre></li>
-<li><p>变量</p>
-<pre><code>var x = 5;  //声明
-x           //使用
-</code></pre></li>
-<li><p>类型</p>
-<pre><code>var cars = new Array(); //声明数组
-cars[0] = &quot;Saab&quot;; //使用
-</code></pre></li>
-<li><p>对象</p>
-<pre><code>var person = {firstname:&quot;John&quot;, lastname:&quot;Doe&quot;} //对象是一个字典 key不用双引号标注
-person.lastname      //使用
-person[&quot;lastname&quot;]   //使用
-
-person = null;       //清空对象
-</code></pre></li>
-<li><p>js的变量支持动态类型，也可以声明类型,下面例子是变量声明类型</p>
-<pre><code>var carname = new String;
-var x = new Number;
-var y = new Boolean;
-var person = new Object;
-</code></pre></li>
-<li><p>对象的操作</p>
-<pre><code># string对象的内置属性和方法
-var txt = &quot;Hello World&quot;
-txt.length
-txt.indexOf()
-txt.replace()
-txt.search()
-</code></pre></li>
-<li><p>函数</p>
-<pre><code># 函数声明
-function functionname()
-{
-
-}
-
-# 调用
-functionname()
-</code></pre></li>
-</ol>
-<ol start="13">
-<li><p>声明 全局变量</p>
-<pre><code>carname = &quot;Volvo&quot;
-</code></pre></li>
-<li><p>if for 语句与c语言一样  </p>
-<pre><code>#支持这种写法
-for(x in person)
-{
-
-}
-</code></pre></li>
-<li><p>try catch 检测异常</p>
-<pre><code>try{
-
-}catch(err){
-
-}
-
-# 自定义抛出异常
-throw &quot;message&quot;
-</code></pre></li>
-<li><p>检测表单</p>
-<pre><code>function validateForm()
-{
-var x=document.forms[&quot;myForm&quot;][&quot;fname&quot;].value;
-if (x==null || x==&quot;&quot;)
-{
-alert(&quot;First name must be filled out&quot;);
-return false;
-}
-}
-
-#使用
-&lt;form name=&quot;myForm&quot; action=&quot;demo_form.asp&quot; onsubmit=&quot;return validateForm()&quot; method=&quot;post&quot;&gt;
-First name: &lt;input type=&quot;text&quot; name=&quot;fname&quot;&gt;
-&lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;
-&lt;/form&gt;
-</code></pre></li>
-<li><p>事件</p>
-<pre><code>onclick
-onload      #加载
-onunload    #离开
-onchange    #完成输入（离开输入框并外面点击）
-onmouseover
-onmouseout
-onmousedown
-onmouseup
-</code></pre></li>
-<li><p>创建，删除 元素</p>
-<pre><code>var element=document.getElementById(&quot;div1&quot;);
-var para=document.createElement(&quot;p&quot;);
-var node=document.createTextNode(&quot;This is new.&quot;);
-element.appendChild(node);
-
-var parent=document.getElementById(&quot;div1&quot;);
-var child=document.getElementById(&quot;p1&quot;);
-parent.removeChild(child);
-</code></pre></li>
-<li><p>对象的构造器</p>
-<pre><code>function person(firstname,lastname)
-{
-this.firstname=firstname;
-this.lastname=lastname;
-}
-#使用构造器创建对象
-var person1=new person(&quot;John&quot;,&quot;Doe&quot;);
-
-#如果不使用构造器创建对象可以直接这样
-var person1 = {firstname:&quot;John&quot;, lastname:&quot;Doe&quot;}
-
-#把方法添加到对象
-function person(firstname,lastname)
-{
-this.firstname=firstname;
-this.lastname=lastname;
-this.changeName=changeName;   #声明是该类的方法  下面是方法的声明
-function changeName(name)
-{
-this.lastname=name;
-}
-}
-</code></pre></li>
-<li><p>Number对象</p>
-<pre><code>isNaN(x)  # 判断 x是否是数字
-</code></pre></li>
-<li><p>window对象</p>
-<pre><code>#所有 JavaScript 全局对象、函数以及变量均自动成为 window 对象的成员
-windwo.document.getElementById(&apos;header&apos;)
-</code></pre></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/14/模拟登陆教务管理系统/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="speakfly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/14/模拟登陆教务管理系统/" itemprop="url">模拟登陆教务管理系统</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-14T20:42:00+08:00">
-                2018-07-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>巩固一下模拟登陆(教务管理系统不用验证码)</p>
-<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
-<li><p>获取登陆链接 与 数据 1</p>
-<ol>
-<li><a href="http://jwgl.zqu.edu.cn/" target="_blank" rel="noopener">http://jwgl.zqu.edu.cn/</a></li>
-<li>按下F12键 选择网络</li>
-<li>输入账号和密码和验证码 登陆</li>
-<li>获得post文件 参看参数  和 消息头(本以为快弄好了)</li>
-<li>但是没有查看到参数 那么肯定就不是这个url了</li>
-<li>下一步分析一下html文件</li>
-</ol>
-</li>
-</ol>
-<ol start="2">
-<li><p>获取登陆链接 与 数据 2</p>
-<ol>
-<li><a href="http://jwgl.zqu.edu.cn/" target="_blank" rel="noopener">http://jwgl.zqu.edu.cn/</a></li>
-<li>按下F12键 选择网络 选择查看器左边的鼠标定位 定位到表单</li>
-<li>发现 账号的id是account,密码的id是 password,url=””</li>
-<li>我尝试着提交上去  登陆不了</li>
-<li>那么我猜测是用到js的原因，接下来我获取 <a href="http://jwgl.zqu.edu.cn/" target="_blank" rel="noopener">http://jwgl.zqu.edu.cn/</a> 的response.text保存到文本里准备分析</li>
-<li><p>搜索”POST” 获取一下代码</p>
-<pre><code> $.ajax({
-url:&quot;/login!fetchMm.action&quot;,
-type:&quot;POST&quot;,
-data:{
-  account:account,
-  mmtip:mmtip,
-  verifycode:verifycode
-},
-dataType:&quot;json&quot;,
-complete:function(){
-  layer.close(l_index);
-},
-success:function(result){
-  if(result.status == &apos;y&apos;){//成功
-    layer.alert(&quot;密码重置成功：&quot;+result.msg+&quot;，&lt;br&gt;登陆后请尽快修改&quot;,7,function(){layer.closeAll();});
-  }else{//失败
-    changeVerifyCode();
-    layer.alert(result.msg);
-  }
- },
- error:function(){
-  layer.alert(&quot;登录超时，请稍后重试！&quot;);
-  }
- });
-  }
-</code></pre></li>
-<li><p>通过上面代码可以看出<br> url:<a href="http://jwgl.zqu.edu.cn/login!fetchMm.action" target="_blank" rel="noopener">http://jwgl.zqu.edu.cn/login!fetchMm.action</a><br> data:account， mmtip, verifycode</p>
-</li>
-<li><p>分别找account,mmtip,verifycode的赋值情况<br> 发现account就是账号，mmtip就是密码 verifycode是空值</p>
-</li>
-</ol>
-</li>
-<li><p>获取了url,data 就可以登陆了，下面是代码</p>
-<pre><code>import requests
-
-headers = {
-    &apos;User-Agent&apos;: &apos;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0&apos;,
-    &apos;Connection&apos;: &apos;keep-alive&apos;,
-    &apos;ConTent-Type&apos;: &apos;application/x-www-form-urlencoded; charset=UTF-8&apos;,
-    &apos;Host&apos;: &apos;jwgl.zqu.edu.cn&apos;,
-}
-
-data = {
-    &apos;account&apos;: &apos;xxxxx&apos;,  #账号
-    &apos;pwd&apos;: &apos;xxxxx&apos;,      #密码
-    &apos;verifycode&apos;: &apos;&apos;,
-}
-
-s = requests.Session()
-def login(account, pwd):
-    data = {
-        &apos;account&apos;: account,
-        &apos;pwd&apos;: pwd,
-        &apos;verifycode&apos;: &apos;&apos;,
-    }
-    url = &apos;http://jwgl.zqu.edu.cn/login!doLogin.action&apos;
-    response = s.post(url, headers=headers, data=data)
-</code></pre></li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/14/锐捷自动登陆/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="speakfly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/14/锐捷自动登陆/" itemprop="url">锐捷自动登陆</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-14T19:53:00+08:00">
-                2018-07-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>因为学校网络原因，每次开机都需要登陆才能联网</p>
-<p>学习了爬虫，想要实现自动登陆</p>
-<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
-<li><p>获取登陆链接</p>
-<ol>
-<li><a href="http://enet.10000.gd.cn:10001/zq/zq251/index.jsp?wlanacip=xxxxx&amp;wlanuserip=xxxxxx" target="_blank" rel="noopener">http://enet.10000.gd.cn:10001/zq/zq251/index.jsp?wlanacip=xxxxx&amp;wlanuserip=xxxxxx</a></li>
-<li>按下F12 选择网络  </li>
-<li>输入账号和密码和验证码 登陆</li>
-<li><p>获得post文件 参看参数  和 消息头</p>
-<p> url: <a href="http://enet.10000.gd.cn:10001/login.do" target="_blank" rel="noopener">http://enet.10000.gd.cn:10001/login.do</a></p>
-<p> data: edubas, eduuser, password1 patch, rand, userName1  (其中rand是验证码是随机的，其他都是固定值)</p>
-</li>
-<li>也就是说我们只需要 requests.post(url,data=data,headers=headers) 就能模拟登陆了</li>
-</ol>
-</li>
-<li><p>获取图片验证码</p>
-<ol>
-<li><p>点击 网络 图片 查找验证码图片 获得url</p>
-<blockquote>
-<p>url:<a href="http://enet.10000.gd.cn:10001/common/image.jsp?time=1531570000864" target="_blank" rel="noopener">http://enet.10000.gd.cn:10001/common/image.jsp?time=1531570000864</a></p>
-</blockquote>
-<blockquote>
-<p>发现获取图片的链接有一个参数 time</p>
-</blockquote>
-<blockquote>
-<p>先不管time 看一下 <a href="http://enet.10000.gd.cn:10001/common/image.jsp" target="_blank" rel="noopener">http://enet.10000.gd.cn:10001/common/image.jsp</a> 能不能获取图片</p>
-</blockquote>
-<blockquote>
-<p>发现果真能获取的了(如果获取不了的话还要分析time的值是如何获取的)</p>
-</blockquote>
-</li>
-<li><p>处理验证码图片获取验证码</p>
-<blockquote>
-<p>正常来说 tesserocr <code>pip install tesserocr pillow</code>就可以安装了<br>但是在win10环境下 需要安装 Microsoft Visual C++ 14.0 所以我换另一种方法<br>用 python 去调用 <a href="http://digi.bib.uni-mannheim.de/tesseract" target="_blank" rel="noopener">tesserorcr.exe</a>程序<br>需要设置tesserocr的环境变量<br>cmd上的tesserocr的命令是<code>tesserocr xx.jpg xx</code>  会生成xx.txt文件</p>
-</blockquote>
-<pre><code>cmd = &quot;tesseract &quot; + IMAGE_URL + &quot; &quot; + TXT_URL[:-4]         #因为会补全.txt 所以去掉TXT_URL最后4个字符
-os.environ.setdefault(&quot;TESSDATA_PREFIX&quot;, &quot;C:\Program Files (x86)\Tesseract-OCR&quot;) # 设置环境变量
-os.system(cmd)                                                                   # 调用命名
-</code></pre><blockquote>
-<p>打开xx.txt发现果真就是4位验证码<br>但是需要注意如果使用<code>with open(&#39;xx.txt&#39;) as f:</code>获取验证码的时候，f.read()返回的是6位字符 需要进行截取f.read()[:4]</p>
-</blockquote>
-</li>
-</ol>
-</li>
-<li><p>代码</p>
-<pre><code>import os
-import requests
-from PIL import Image
-import sys
-
-headers = {
-    &apos;User-Agent&apos;: &apos;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36&apos;,
-    &apos;Accept&apos;: &apos;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&apos;,
-    &apos;Connection&apos;: &apos;keep-alive&apos;,
-    &apos;Host&apos;: &apos;enet.10000.gd.cn:10001&apos;,
-}
-
-IP = &quot;xxx.xxx.xxx.xxx&quot;               #需要修改成自己的ip
-ID = &quot;xxxxxxxxxx&quot;                    #需要修改成自己的学号
-PASSWORD1 = &quot;xxxxxxxx&quot;               #需要修改自己的密码 这个密码是经过加密的，可以在浏览器查看
-</code></pre></li>
-</ol>
-<pre><code>PATH = sys.path[0]                       #获取文件目录路径
-IMAGE_URL = sys.path[0] + &quot;\\test.jpg&quot;   #设定图片路径
-TXT_URL = sys.path[0] + &quot;\\test.txt&quot;     #设置文本路径
-s = requests.Session()                   #保持会话
-
-
-def get_image():
-    &quot;&quot;&quot;获取验证图片&quot;&quot;&quot;
-    image = &apos;http://enet.10000.gd.cn:10001/common/image.jsp&apos;
-    response = s.get(image, headers=headers)
-
-    &quot;&quot;&quot;保存图片&quot;&quot;&quot;
-    if response.status_code == 200:
-        with open(IMAGE_URL, &apos;wb&apos;) as f:
-            f.write(response.content)
-    else:
-        print(&apos;获取图片失败&apos;)
-
-
-def get_random():
-    &quot;&quot;&quot;获取验证码&quot;&quot;&quot;
-    cmd = &quot;tesseract &quot; + IMAGE_URL + &quot; &quot; + TXT_URL[:-4]       # 设置windwo的tesseract命令 tesseract xx.jpg xx(会自动补全.txt后缀)
-    os.environ.setdefault(&quot;TESSDATA_PREFIX&quot;, &quot;C:\Program Files (x86)\Tesseract-OCR&quot;) # 设置环境变量
-    os.system(cmd)                                                                   # 调用命名
-    time.sleep(1)
-    with open(TXT_URL) as f:
-        random = f.read()
-    return random[:4]
-
-def check():
-    &quot;&quot;&quot;验证&quot;&quot;&quot;
-    random = get_random()                                #获取验证码
-    url = &apos;http://enet.10000.gd.cn:10001/login.do&apos;
-    data = {
-        &apos;edubas&apos;: &apos;119.146.99.27&apos;,
-        &apos;eduuser&apos;: IP,
-        &apos;password1&apos;: PASSWORD1,
-        &apos;patch&apos;: &apos;wifi&apos;,
-        &apos;rand&apos;: random,
-        &apos;userName1&apos;: ID,
-    }
-    response =s.post(url, headers=headers, data=data)
-    # print(response.text)
-    if response.status_code == 200:
-        print(&apos;锐捷登陆成功&apos;)
-
-if __name__ == &quot;__main__&quot;:
-
-    get_image()
-    check()
-</code></pre><h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><pre><code>经过这次实验，我更加熟悉模拟登陆的流程， 使用会话保持 requests.Session()会免去很多麻烦
-读取xx.txt 文件需要检查一下字符 特别是换行，空格，tab
-</code></pre>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2254,7 +2070,7 @@ if __name__ == &quot;__main__&quot;:
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2267,7 +2083,7 @@ if __name__ == &quot;__main__&quot;:
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

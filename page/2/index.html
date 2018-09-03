@@ -249,6 +249,889 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/15/使用js文件进行加密/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/15/使用js文件进行加密/" itemprop="url">使用js文件进行加密</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-15T11:52:00+08:00">
+                2018-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>优化 锐捷自动登陆程序</p>
+<p>因为 我们的password 是 经过javascript 程序加密过的 那怎么获取加密过的密码呢？</p>
+<p>第一种办法</p>
+<p>通过浏览器 先登陆一次 按F12 获取 参数(上次的实验就是这样获取)</p>
+<p>第二种办法</p>
+<p>获取js程序的代码 运行js代码 获取 加密后的密码</p>
+<p>这次实验就是 用第二种办法</p>
+<h1 id="实验环境"><a href="#实验环境" class="headerlink" title="实验环境"></a>实验环境</h1><ol>
+<li><a href="https://pypi.org/project/PyExecJS/" target="_blank" rel="noopener">PyExecJS</a> <code>pip install PyExecJS</code></li>
+</ol>
+<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
+<li><p>获取加密js文件</p>
+<ol>
+<li>打开 <a href="http://enet.10000.gd.cn:10001/zq/zq251/index.jsp?wlanacip=xxxxx&amp;wlanuserip=xxxxxx" target="_blank" rel="noopener">http://enet.10000.gd.cn:10001/zq/zq251/index.jsp?wlanacip=xxxxx&amp;wlanuserip=xxxxxx</a></li>
+<li>F12 网络 所有 查看 文件 搜索 password</li>
+<li>在一个index.js文件里面发现 <code>password.value = BASE64.encoder(password.value);</code></li>
+<li>在base64.js 文件发现encoder函数</li>
+</ol>
+</li>
+<li><p>分析 js文件</p>
+<ol>
+<li><code>(function(){主要代码 window.BASE64 = __BASE64; })()</code></li>
+<li>加密程序 在匿名函数的主要代码里面,那么怎么去引用里面的代码呢？</li>
+<li>查找资料发现 window.BASE64 是声明全局变量的， 通过 BASE64就能引用里面的内容了</li>
+<li>但是 python执行的js文件程序 识别不了 window, 那么我就把主要代码给提出来保存到base64.txt文件</li>
+</ol>
+</li>
+<li><p>python执行js文件里面的函数</p>
+<pre><code>import execjs
+password = &apos;12345678&apos;
+password1 = execjs.compile(open(&apos;base64.txt&apos;, encoding=&apos;UTF-8&apos;).read()).call(&apos;BASE64.encoder&apos;, password)
+print(password1)      #返回的结果和在浏览器提取的password1参数一样
+</code></pre></li>
+<li><p>熟悉一下加密和解密</p>
+<pre><code>encoder函数 输入 字符串 返回 字符串
+decoder函数 输入 字符串 返回 ascii码 的 列表
+
+a = 48      #ascii码
+a = chr(a)  #ascii码转字符
+</code></pre></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/15/JavaScript基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/15/JavaScript基础/" itemprop="url">JavaScript基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-15T08:06:00+08:00">
+                2018-07-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>了解js</p>
+<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
+<li><script> 标签
+
+     <script>
+     alert("Hello World");
+     </script>
+
+<pre><code>&lt;script&gt;
+document.write(&quot;&lt;h1&gt;这是一个标题&lt;/h1&gt;&quot;)
+document.write(&quot;&lt;p&gt;这是一个段落&lt;/p&gt;&quot;)
+&lt;/script&gt;
+</code></pre></li>
+<li><p>script代码一般放在页面底部</p>
+<pre><code>#监测触发时间并调用函数
+&lt;script&gt;
+function myFunction()
+{
+  alert(&apos;Hello World&apos;);
+}
+&lt;/script&gt;
+
+&lt;button type=&quot;button&quot;, onclick=&quot;myFunction()&quot;&gt;hello&lt;/button&gt;
+</code></pre></li>
+<li><p>引用外部js</p>
+<pre><code>&lt;script src=&quot;myScript.js&quot;&gt;&lt;/script&gt;
+</code></pre></li>
+<li><p>操作HTML元素</p>
+<pre><code>document.write(Data())
+document.getElementById(&quot;demo&quot;).innerHTML=&quot;Hello World&quot;;
+document.getElementById(id).attribute=new value   
+document.getElementById(&quot;p2&quot;).style.color= &quot;blue&quot;;
+</code></pre></li>
+<li><p>写到文档输出</p>
+<pre><code>#会覆盖已经显示的html语言
+document.write(&quot;&lt;p&gt;Hello World&lt;/p&gt;&quot;);
+</code></pre></li>
+<li><p>注释</p>
+<pre><code>单行注释 `/  /`
+多行注释 `/* */`
+</code></pre></li>
+<li><p>变量</p>
+<pre><code>var x = 5;  //声明
+x           //使用
+</code></pre></li>
+<li><p>类型</p>
+<pre><code>var cars = new Array(); //声明数组
+cars[0] = &quot;Saab&quot;; //使用
+</code></pre></li>
+<li><p>对象</p>
+<pre><code>var person = {firstname:&quot;John&quot;, lastname:&quot;Doe&quot;} //对象是一个字典 key不用双引号标注
+person.lastname      //使用
+person[&quot;lastname&quot;]   //使用
+
+person = null;       //清空对象
+</code></pre></li>
+<li><p>js的变量支持动态类型，也可以声明类型,下面例子是变量声明类型</p>
+<pre><code>var carname = new String;
+var x = new Number;
+var y = new Boolean;
+var person = new Object;
+</code></pre></li>
+<li><p>对象的操作</p>
+<pre><code># string对象的内置属性和方法
+var txt = &quot;Hello World&quot;
+txt.length
+txt.indexOf()
+txt.replace()
+txt.search()
+</code></pre></li>
+<li><p>函数</p>
+<pre><code># 函数声明
+function functionname()
+{
+
+}
+
+# 调用
+functionname()
+</code></pre></li>
+</ol>
+<ol start="13">
+<li><p>声明 全局变量</p>
+<pre><code>carname = &quot;Volvo&quot;
+</code></pre></li>
+<li><p>if for 语句与c语言一样  </p>
+<pre><code>#支持这种写法
+for(x in person)
+{
+
+}
+</code></pre></li>
+<li><p>try catch 检测异常</p>
+<pre><code>try{
+
+}catch(err){
+
+}
+
+# 自定义抛出异常
+throw &quot;message&quot;
+</code></pre></li>
+<li><p>检测表单</p>
+<pre><code>function validateForm()
+{
+var x=document.forms[&quot;myForm&quot;][&quot;fname&quot;].value;
+if (x==null || x==&quot;&quot;)
+{
+alert(&quot;First name must be filled out&quot;);
+return false;
+}
+}
+
+#使用
+&lt;form name=&quot;myForm&quot; action=&quot;demo_form.asp&quot; onsubmit=&quot;return validateForm()&quot; method=&quot;post&quot;&gt;
+First name: &lt;input type=&quot;text&quot; name=&quot;fname&quot;&gt;
+&lt;input type=&quot;submit&quot; value=&quot;Submit&quot;&gt;
+&lt;/form&gt;
+</code></pre></li>
+<li><p>事件</p>
+<pre><code>onclick
+onload      #加载
+onunload    #离开
+onchange    #完成输入（离开输入框并外面点击）
+onmouseover
+onmouseout
+onmousedown
+onmouseup
+</code></pre></li>
+<li><p>创建，删除 元素</p>
+<pre><code>var element=document.getElementById(&quot;div1&quot;);
+var para=document.createElement(&quot;p&quot;);
+var node=document.createTextNode(&quot;This is new.&quot;);
+element.appendChild(node);
+
+var parent=document.getElementById(&quot;div1&quot;);
+var child=document.getElementById(&quot;p1&quot;);
+parent.removeChild(child);
+</code></pre></li>
+<li><p>对象的构造器</p>
+<pre><code>function person(firstname,lastname)
+{
+this.firstname=firstname;
+this.lastname=lastname;
+}
+#使用构造器创建对象
+var person1=new person(&quot;John&quot;,&quot;Doe&quot;);
+
+#如果不使用构造器创建对象可以直接这样
+var person1 = {firstname:&quot;John&quot;, lastname:&quot;Doe&quot;}
+
+#把方法添加到对象
+function person(firstname,lastname)
+{
+this.firstname=firstname;
+this.lastname=lastname;
+this.changeName=changeName;   #声明是该类的方法  下面是方法的声明
+function changeName(name)
+{
+this.lastname=name;
+}
+}
+</code></pre></li>
+<li><p>Number对象</p>
+<pre><code>isNaN(x)  # 判断 x是否是数字
+</code></pre></li>
+<li><p>window对象</p>
+<pre><code>#所有 JavaScript 全局对象、函数以及变量均自动成为 window 对象的成员
+windwo.document.getElementById(&apos;header&apos;)
+</code></pre></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/14/模拟登陆教务管理系统/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/14/模拟登陆教务管理系统/" itemprop="url">模拟登陆教务管理系统</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-14T20:42:00+08:00">
+                2018-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>巩固一下模拟登陆(教务管理系统不用验证码)</p>
+<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
+<li><p>获取登陆链接 与 数据 1</p>
+<ol>
+<li><a href="http://jwgl.zqu.edu.cn/" target="_blank" rel="noopener">http://jwgl.zqu.edu.cn/</a></li>
+<li>按下F12键 选择网络</li>
+<li>输入账号和密码和验证码 登陆</li>
+<li>获得post文件 参看参数  和 消息头(本以为快弄好了)</li>
+<li>但是没有查看到参数 那么肯定就不是这个url了</li>
+<li>下一步分析一下html文件</li>
+</ol>
+</li>
+</ol>
+<ol start="2">
+<li><p>获取登陆链接 与 数据 2</p>
+<ol>
+<li><a href="http://jwgl.zqu.edu.cn/" target="_blank" rel="noopener">http://jwgl.zqu.edu.cn/</a></li>
+<li>按下F12键 选择网络 选择查看器左边的鼠标定位 定位到表单</li>
+<li>发现 账号的id是account,密码的id是 password,url=””</li>
+<li>我尝试着提交上去  登陆不了</li>
+<li>那么我猜测是用到js的原因，接下来我获取 <a href="http://jwgl.zqu.edu.cn/" target="_blank" rel="noopener">http://jwgl.zqu.edu.cn/</a> 的response.text保存到文本里准备分析</li>
+<li><p>搜索”POST” 获取一下代码</p>
+<pre><code> $.ajax({
+url:&quot;/login!fetchMm.action&quot;,
+type:&quot;POST&quot;,
+data:{
+  account:account,
+  mmtip:mmtip,
+  verifycode:verifycode
+},
+dataType:&quot;json&quot;,
+complete:function(){
+  layer.close(l_index);
+},
+success:function(result){
+  if(result.status == &apos;y&apos;){//成功
+    layer.alert(&quot;密码重置成功：&quot;+result.msg+&quot;，&lt;br&gt;登陆后请尽快修改&quot;,7,function(){layer.closeAll();});
+  }else{//失败
+    changeVerifyCode();
+    layer.alert(result.msg);
+  }
+ },
+ error:function(){
+  layer.alert(&quot;登录超时，请稍后重试！&quot;);
+  }
+ });
+  }
+</code></pre></li>
+<li><p>通过上面代码可以看出<br> url:<a href="http://jwgl.zqu.edu.cn/login!fetchMm.action" target="_blank" rel="noopener">http://jwgl.zqu.edu.cn/login!fetchMm.action</a><br> data:account， mmtip, verifycode</p>
+</li>
+<li><p>分别找account,mmtip,verifycode的赋值情况<br> 发现account就是账号，mmtip就是密码 verifycode是空值</p>
+</li>
+</ol>
+</li>
+<li><p>获取了url,data 就可以登陆了，下面是代码</p>
+<pre><code>import requests
+
+headers = {
+    &apos;User-Agent&apos;: &apos;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0&apos;,
+    &apos;Connection&apos;: &apos;keep-alive&apos;,
+    &apos;ConTent-Type&apos;: &apos;application/x-www-form-urlencoded; charset=UTF-8&apos;,
+    &apos;Host&apos;: &apos;jwgl.zqu.edu.cn&apos;,
+}
+
+data = {
+    &apos;account&apos;: &apos;xxxxx&apos;,  #账号
+    &apos;pwd&apos;: &apos;xxxxx&apos;,      #密码
+    &apos;verifycode&apos;: &apos;&apos;,
+}
+
+s = requests.Session()
+def login(account, pwd):
+    data = {
+        &apos;account&apos;: account,
+        &apos;pwd&apos;: pwd,
+        &apos;verifycode&apos;: &apos;&apos;,
+    }
+    url = &apos;http://jwgl.zqu.edu.cn/login!doLogin.action&apos;
+    response = s.post(url, headers=headers, data=data)
+</code></pre></li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/14/锐捷自动登陆/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/14/锐捷自动登陆/" itemprop="url">锐捷自动登陆</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-14T19:53:00+08:00">
+                2018-07-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>因为学校网络原因，每次开机都需要登陆才能联网</p>
+<p>学习了爬虫，想要实现自动登陆</p>
+<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
+<li><p>获取登陆链接</p>
+<ol>
+<li><a href="http://enet.10000.gd.cn:10001/zq/zq251/index.jsp?wlanacip=xxxxx&amp;wlanuserip=xxxxxx" target="_blank" rel="noopener">http://enet.10000.gd.cn:10001/zq/zq251/index.jsp?wlanacip=xxxxx&amp;wlanuserip=xxxxxx</a></li>
+<li>按下F12 选择网络  </li>
+<li>输入账号和密码和验证码 登陆</li>
+<li><p>获得post文件 参看参数  和 消息头</p>
+<p> url: <a href="http://enet.10000.gd.cn:10001/login.do" target="_blank" rel="noopener">http://enet.10000.gd.cn:10001/login.do</a></p>
+<p> data: edubas, eduuser, password1 patch, rand, userName1  (其中rand是验证码是随机的，其他都是固定值)</p>
+</li>
+<li>也就是说我们只需要 requests.post(url,data=data,headers=headers) 就能模拟登陆了</li>
+</ol>
+</li>
+<li><p>获取图片验证码</p>
+<ol>
+<li><p>点击 网络 图片 查找验证码图片 获得url</p>
+<blockquote>
+<p>url:<a href="http://enet.10000.gd.cn:10001/common/image.jsp?time=1531570000864" target="_blank" rel="noopener">http://enet.10000.gd.cn:10001/common/image.jsp?time=1531570000864</a></p>
+</blockquote>
+<blockquote>
+<p>发现获取图片的链接有一个参数 time</p>
+</blockquote>
+<blockquote>
+<p>先不管time 看一下 <a href="http://enet.10000.gd.cn:10001/common/image.jsp" target="_blank" rel="noopener">http://enet.10000.gd.cn:10001/common/image.jsp</a> 能不能获取图片</p>
+</blockquote>
+<blockquote>
+<p>发现果真能获取的了(如果获取不了的话还要分析time的值是如何获取的)</p>
+</blockquote>
+</li>
+<li><p>处理验证码图片获取验证码</p>
+<blockquote>
+<p>正常来说 tesserocr <code>pip install tesserocr pillow</code>就可以安装了<br>但是在win10环境下 需要安装 Microsoft Visual C++ 14.0 所以我换另一种方法<br>用 python 去调用 <a href="http://digi.bib.uni-mannheim.de/tesseract" target="_blank" rel="noopener">tesserorcr.exe</a>程序<br>需要设置tesserocr的环境变量<br>cmd上的tesserocr的命令是<code>tesserocr xx.jpg xx</code>  会生成xx.txt文件</p>
+</blockquote>
+<pre><code>cmd = &quot;tesseract &quot; + IMAGE_URL + &quot; &quot; + TXT_URL[:-4]         #因为会补全.txt 所以去掉TXT_URL最后4个字符
+os.environ.setdefault(&quot;TESSDATA_PREFIX&quot;, &quot;C:\Program Files (x86)\Tesseract-OCR&quot;) # 设置环境变量
+os.system(cmd)                                                                   # 调用命名
+</code></pre><blockquote>
+<p>打开xx.txt发现果真就是4位验证码<br>但是需要注意如果使用<code>with open(&#39;xx.txt&#39;) as f:</code>获取验证码的时候，f.read()返回的是6位字符 需要进行截取f.read()[:4]</p>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><p>代码</p>
+<pre><code>import os
+import requests
+from PIL import Image
+import sys
+
+headers = {
+    &apos;User-Agent&apos;: &apos;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.162 Safari/537.36&apos;,
+    &apos;Accept&apos;: &apos;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&apos;,
+    &apos;Connection&apos;: &apos;keep-alive&apos;,
+    &apos;Host&apos;: &apos;enet.10000.gd.cn:10001&apos;,
+}
+
+IP = &quot;xxx.xxx.xxx.xxx&quot;               #需要修改成自己的ip
+ID = &quot;xxxxxxxxxx&quot;                    #需要修改成自己的学号
+PASSWORD1 = &quot;xxxxxxxx&quot;               #需要修改自己的密码 这个密码是经过加密的，可以在浏览器查看
+</code></pre></li>
+</ol>
+<pre><code>PATH = sys.path[0]                       #获取文件目录路径
+IMAGE_URL = sys.path[0] + &quot;\\test.jpg&quot;   #设定图片路径
+TXT_URL = sys.path[0] + &quot;\\test.txt&quot;     #设置文本路径
+s = requests.Session()                   #保持会话
+
+
+def get_image():
+    &quot;&quot;&quot;获取验证图片&quot;&quot;&quot;
+    image = &apos;http://enet.10000.gd.cn:10001/common/image.jsp&apos;
+    response = s.get(image, headers=headers)
+
+    &quot;&quot;&quot;保存图片&quot;&quot;&quot;
+    if response.status_code == 200:
+        with open(IMAGE_URL, &apos;wb&apos;) as f:
+            f.write(response.content)
+    else:
+        print(&apos;获取图片失败&apos;)
+
+
+def get_random():
+    &quot;&quot;&quot;获取验证码&quot;&quot;&quot;
+    cmd = &quot;tesseract &quot; + IMAGE_URL + &quot; &quot; + TXT_URL[:-4]       # 设置windwo的tesseract命令 tesseract xx.jpg xx(会自动补全.txt后缀)
+    os.environ.setdefault(&quot;TESSDATA_PREFIX&quot;, &quot;C:\Program Files (x86)\Tesseract-OCR&quot;) # 设置环境变量
+    os.system(cmd)                                                                   # 调用命名
+    time.sleep(1)
+    with open(TXT_URL) as f:
+        random = f.read()
+    return random[:4]
+
+def check():
+    &quot;&quot;&quot;验证&quot;&quot;&quot;
+    random = get_random()                                #获取验证码
+    url = &apos;http://enet.10000.gd.cn:10001/login.do&apos;
+    data = {
+        &apos;edubas&apos;: &apos;119.146.99.27&apos;,
+        &apos;eduuser&apos;: IP,
+        &apos;password1&apos;: PASSWORD1,
+        &apos;patch&apos;: &apos;wifi&apos;,
+        &apos;rand&apos;: random,
+        &apos;userName1&apos;: ID,
+    }
+    response =s.post(url, headers=headers, data=data)
+    # print(response.text)
+    if response.status_code == 200:
+        print(&apos;锐捷登陆成功&apos;)
+
+if __name__ == &quot;__main__&quot;:
+
+    get_image()
+    check()
+</code></pre><h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><pre><code>经过这次实验，我更加熟悉模拟登陆的流程， 使用会话保持 requests.Session()会免去很多麻烦
+读取xx.txt 文件需要检查一下字符 特别是换行，空格，tab
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/14/Selenium/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -924,6 +1807,137 @@ if __name__ == &apos;__main__&apos;:
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/12/静态方法,类方法,实例方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="speakfly">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/12/静态方法,类方法,实例方法/" itemprop="url">静态方法,类方法,实例方法的区别</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T16:29:00+08:00">
+                2018-07-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
+<li><a href="https://www.cnblogs.com/wcwnina/p/8644892.html" target="_blank" rel="noopener">蔷薇Nina</a></li>
+</ol>
+<h1 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h1><p>定义：第一个参数必须是实例对象，该参数名一般约定为“self”，通过它来传递实例的属性和方法（也可以传类的属性和方法）；</p>
+<p>调用：只能由实例对象调用。</p>
+<h1 id="类方法"><a href="#类方法" class="headerlink" title="类方法"></a>类方法</h1><p>定义：使用装饰器@classmethod。第一个参数必须是当前类对象，该参数名一般约定为“cls”，通过它来传递类的属性和方法（不能传实例的属性和方法）<br>调用：实例对象和类对象都可以调用。</p>
+<p>作用： 能到类的属性和方法(不能获取实例的属性和方法)</p>
+<h1 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h1><p>定义：使用装饰器@staticmethod。参数随意，没有“self”和“cls”参数，但是方法体中不能使用类或实例的任何属性和方法；</p>
+<p>调用：实例对象和类对象都可以调用。</p>
+<p>作用： 独立的方法</p>
+<h1 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h1><p>类方法和静态方法  在类的声明的时候就为他们声明了空间所以不用实例化就能调用</p>
+<p>self 指代的是  当前实例对象<br>cls  指代的是  当前类对象</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/12/解决github访问慢/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1014,137 +2028,6 @@ IP地址的解析。
 <pre><code>点击host文件，右键属性，安全，点击Users, 编辑， 完全控制，应用
 </code></pre></li>
 </ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/12/静态方法,类方法,实例方法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="speakfly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/12/静态方法,类方法,实例方法/" itemprop="url">静态方法,类方法,实例方法的区别</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T16:29:00+08:00">
-                2018-07-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
-<li><a href="https://www.cnblogs.com/wcwnina/p/8644892.html" target="_blank" rel="noopener">蔷薇Nina</a></li>
-</ol>
-<h1 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h1><p>定义：第一个参数必须是实例对象，该参数名一般约定为“self”，通过它来传递实例的属性和方法（也可以传类的属性和方法）；</p>
-<p>调用：只能由实例对象调用。</p>
-<h1 id="类方法"><a href="#类方法" class="headerlink" title="类方法"></a>类方法</h1><p>定义：使用装饰器@classmethod。第一个参数必须是当前类对象，该参数名一般约定为“cls”，通过它来传递类的属性和方法（不能传实例的属性和方法）<br>调用：实例对象和类对象都可以调用。</p>
-<p>作用： 能到类的属性和方法(不能获取实例的属性和方法)</p>
-<h1 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h1><p>定义：使用装饰器@staticmethod。参数随意，没有“self”和“cls”参数，但是方法体中不能使用类或实例的任何属性和方法；</p>
-<p>调用：实例对象和类对象都可以调用。</p>
-<p>作用： 独立的方法</p>
-<h1 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h1><p>类方法和静态方法  在类的声明的时候就为他们声明了空间所以不用实例化就能调用</p>
-<p>self 指代的是  当前实例对象<br>cls  指代的是  当前类对象</p>
 
           
         
@@ -1357,321 +2240,11 @@ email: 1090384046@qq.com
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/12/blog_01/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="speakfly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/12/blog_01/" itemprop="url">Hexo + Github + next 搭建博客（基础）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T14:53:12+08:00">
-                2018-07-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h1><p>搭建自己的博客方便自己写笔记</p>
-<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ol>
-<li><a href="http://www.cnblogs.com/fengxiongZz/p/7707219.html" target="_blank" rel="noopener">Z皓博客</a></li>
-<li><a href="https://hexo.io/zh-cn/docs/commands.html" target="_blank" rel="noopener">hexo</a></li>
-</ol>
-<h1 id="实验环境-window"><a href="#实验环境-window" class="headerlink" title="实验环境(window)"></a>实验环境(window)</h1><ol>
-<li><a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js</a></li>
-<li><a href="https://git-scm.com/" target="_blank" rel="noopener">git</a></li>
-<li><a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="noopener">hexo</a> <code>npm install -g hexo-cli</code></li>
-<li><a href="https://atom.io/" target="_blank" rel="noopener">atom</a></li>
-<li><p>验证是否安装成功(在cmd里面执行)</p>
-<pre><code>node -v
-git --version
-hexo -v
-</code></pre></li>
-<li>注册GitHub账号，并创建仓库命名为：账号.github.io</li>
-</ol>
-<h1 id="实践操作"><a href="#实践操作" class="headerlink" title="实践操作"></a>实践操作</h1><ol>
-<li><p>初体验</p>
-<pre><code>hexo init blog   #创建工程
-cd blog
-hexo g -d        #g生成静态文件  -d 是部署到远程代理(现在还没有设置远程代理)
-hexo s           #开启服务 可以使用浏览器登陆 http://locahost:4000
-</code></pre></li>
-<li><p>部署远程代理</p>
-<ol>
-<li><p>git的基本配置</p>
-<pre><code>git config --global user.name &quot;your_name&quot;  #your_name改成自己的名字比如&quot;ming&quot;, 下同
-git config --global user.email &quot;your_email&quot;
-
-cd ~/.ssh
-ssh-keygen -t rsa -C &quot;your_email&quot;     #生成公共密钥 默认路径：`C:\Users\Administrator\.ssh`
-eval &quot;$(ssh-agent -s)&quot;   #添加密钥到ssh-agent
-ssh-add ~/.ssh/id_rsa    #添加生成的SSH-KEY到ssh-agent
-
-#登录Github，点击头像下的settings，添加ssh
-#将.ssh文件夹下的id_rsa.pub 的所有内容复制上去
-</code></pre><ol start="2">
-<li><p>验证</p>
-<pre><code>ssh -T git@github.com
-</code></pre></li>
-<li><p>配置远程代理 Deployment(注意下面的代码中speakfly是我的github用户命需要替换成自己的)</p>
-<pre><code>deploy:
-type: git
-repository: git@github.com:speakfly/speakfly.github.io.git
-branch: master
-</code></pre></li>
-<li><p>安装自动上传文件的插件</p>
-<pre><code>npm install hexo-deployer-git --save
-</code></pre></li>
-<li><p>新建一篇博客(生成的文件在 <code>_post</code>目录下)用atom软件进行编辑,需学习<a href="http://www.markdown.cn/" target="_blank" rel="noopener">markdown语法</a></p>
-<pre><code>hexo new post &quot;blog_name&quot;
-</code></pre></li>
-<li><p>生成静态文件和部署网站到远程代理</p>
-<pre><code>hexo d -g
-</code></pre></li>
-<li><p>在浏览器输入  https://用户名.github.io</p>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/12/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="speakfly">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/12/hello-world/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T11:21:39+08:00">
-                2018-07-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1717,7 +2290,7 @@ branch: master
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1730,7 +2303,7 @@ branch: master
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
